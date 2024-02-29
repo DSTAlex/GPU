@@ -14,7 +14,7 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 
 // step 06
 __global__
-void add(int n, const int *dx, int *dy)
+void add_strided(int n, const int *dx, int *dy)
 {
      int j = threadIdx.x + blockDim.x * blockIdx.x ;
      for(int i = j; i < n; i += gridDim.x * blockDim.x){
@@ -54,7 +54,7 @@ int main()
     const int threads_per_bloc = 32;
     const int blocs = 8;
 
-    add<<<blocs, threads_per_bloc>>>(N, dx, dy);
+    add_strided<<<blocs, threads_per_bloc>>>(N, dx, dy);
 
 
     // 4. copy result from device to host
