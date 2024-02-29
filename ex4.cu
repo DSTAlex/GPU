@@ -13,6 +13,15 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 
 
 // step 06
+__global__
+void add(int n, const int *dx, int *dy)
+{
+     int j = threadIdx.x + blockDim.x * blockIdx.x ;
+     for(int i = j; i < n; i += gridDim.x * blockDim.x){
+        dy[i] = dx[i] + dy[i];
+     }
+}
+
 
 
 
@@ -30,25 +39,31 @@ int main()
     int* dx;
     int* dy;
     // 1. allocate on device
+    CUDA_CHECK(cudaMalloc(&dx, N*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dy, N*sizeof(int)));
 
 
 
     // 2. copy from host to device
 
+    CUDA_CHECK(cudaMemcpy(dx, x, N*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(dy, y, N*sizeof(int), cudaMemcpyHostToDevice));
 
 
     // 3. launch CUDA kernel
     const int threads_per_bloc = 32;
     const int blocs = 8;
 
+    add<<<blocs, threads_per_bloc>>>(N, dx, dy);
 
 
     // 4. copy result from device to host
-
+    CUDA_CHECK(cudaMemcpy(y, dy, N*sizeof(int), cudaMemcpyDeviceToHost));
 
 
     // 5. free device memory
-
+    CUDA_CHECK(cudaFree(dx));
+    CUDA_CHECK(cudaFree(dy));
 
 
     // checking results
