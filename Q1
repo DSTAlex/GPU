@@ -1,0 +1,9 @@
+Combien de float par bloc peut-on instancier au maximum dans la shared memory ?
+	49152 / 4 = 12288
+	On peut donc metre 12288 float dans la memoire partagé.
+
+Quelle est la taille maximale d’un bloc 3D dont les dimensions sont égales ?
+	64x64x64
+
+Selon la version compute capability, le GPU a-t-il des Tensor Cores ?
+	non car il faut une compute capability de 8.0
