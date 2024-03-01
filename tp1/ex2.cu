@@ -3,9 +3,9 @@
 // step 02
 
 __global__
-void hello_worl()
+void hello_world()
 {
-    printf("Hello World bloc=%i thread = %i", blockIdx.x, threadIdx.x)
+    printf("Hello World bloc=%i thread = %i\n", blockIdx.x, threadIdx.x);
 }
 
 
@@ -13,9 +13,9 @@ void hello_worl()
 int main()
 {
     // step 03
-    hello_worl<<<1,1>>>()
+    hello_world<<<1,1>>>();
 
-    cudaDeviceSyncronize()
+    cudaDeviceSynchronize();
 
     return 0;
 }
