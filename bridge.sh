@@ -14,6 +14,4 @@ then
     ./exo
 else
     ssh -X -l alexandre.di-santo -p 2200$2 gpgpu.image.lrde.iaas.epita.fr
-    kinit
-    aklog
 fi
