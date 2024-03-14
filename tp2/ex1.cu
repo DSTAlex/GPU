@@ -30,7 +30,7 @@ void add(const int* dx, int* dy, int rows, int cols)
 {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j = blockIdx.y * blockDim.y + threadIdx.y;
-    k = linear_index(i, j, rows, cols)
+    k = linear_index(i, j, rows, cols);
     if(i > rows || j > cols)
         dy[k] = dx[k] + dy[k];
 }
@@ -63,11 +63,11 @@ int main()
     // 3. launch CUDA kernel
     const dim3 threads_per_bloc{32,32,1};
     const dim3 number_of_bloc{(cols + threads_per_bloc.x - 1)/threads_per_bloc.x,
-                                (rows + threads_per_bloc.y -1)/ threads_per_bloc.y ,1}
+                                (rows + threads_per_bloc.y -1)/ threads_per_bloc.y ,1};
     add<<<number_of_bloc, threads_per_bloc>>>(dx, dy, rows, cols);
 
     // 4. copy result from device to host
-    CUDA_CHECK(cudaMemcpy(y, dy, N*sizeof(int), cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy(y, dy, rows*cols*sizeof(int), cudaMemcpyDeviceToHost));
 
     // 5. free device memory
     CUDA_CHECK(cudaFree(dx));
