@@ -31,9 +31,9 @@ void add(const int* dx, int* dy, int rows, int cols)
     int j = blockIdx.x * blockDim.x + threadIdx.x;
     int i = blockIdx.y * blockDim.y + threadIdx.y;
     int k = linear_index(i, j, rows, cols);
-    printf("%i, %i, %i\n", i,j ,k);
-    if(j > cols || i > rows)
+    if(j <= cols || i <= rows)
         dy[k] = dx[k] + dy[k];
+
 }
 
 
