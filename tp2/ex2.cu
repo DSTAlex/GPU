@@ -16,15 +16,27 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 // return a pointer to the value at row i and column j from base_address 
 // with pitch in bytes
 //
-__device__ inline int* get_ptr(int* base_address, int i, int j, size_t pitch) {
-    
+__device__ 
+inline int* get_ptr(int* base_address, int i, int j, size_t pitch) {
+    adress_in_mat = i * pitch + j * sizeof(int);
+    return base_address + adress_in_mat;
 }
 
 //
 // step 05
 // CUDA kernel add 
 //
+__global__ 
+void add(const int* dx, int* dy, int rows, int cols, size_t pitch)
+{
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int j = blockIdx.y * blockDim.y + threadIdx.y;
+    if(j < cols && i < rows)
+        x = *get_ptr(dx, i, j, pitch);
+        y = *get_ptr(dy, i, j, pitch);
+        *get_ptr(dy, i, j, pitch) = x + y;
 
+}
 
 
 
@@ -44,18 +56,28 @@ int main()
     //
     int* dx;
     int* dy;
-    size_t pitch;
+    size_t pitchx, pitchy;
     // 1. allocate on device
+    CUDA_CHECK(cudaMallocPitch(&dx, &pitchx, cols*sizeof(int), row));
+    CUDA_CHECK(cudaMallocPitch(&dy, &pitchy, cols*sizeof(int), row));
 
     // 2. copy from host to device
+    CUDA_CHECK(cudaMemcpy2D(dx, pitchx, x, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy2D(dy, pitchy, y, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
 
     // 3. launch CUDA kernel
-    // const dim3 threads_per_bloc{32,32,1};
+    const dim3 threads_per_bloc{32,32,1};
+    const dim3 number_of_bloc{(rows + threads_per_bloc.x - 1)/threads_per_bloc.x,
+                                (cols + threads_per_bloc.y -1)/ threads_per_bloc.y ,1};
+    printf("%i, %i\n", number_of_bloc.x, number_of_bloc.y);
+    add<<<number_of_bloc, threads_per_bloc>>>(dx, dy, rows, cols);
 
     // 4. copy result from device to host
+    CUDA_CHECK(cudaMemcpy2D(y, cols*sizeof(int), dy, pitchy, cols*sizeof(int), rows, cudaMemcpyDeviceToHost));
 
     // 5. free device memory
-
+    CUDA_CHECK(cudaFree(dx));
+    CUDA_CHECK(cudaFree(dy));
 
 
     // checking results
