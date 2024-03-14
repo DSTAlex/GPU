@@ -1,0 +1,6 @@
+Q1 Que vaut l’indice k de cet élément dans le tableau 1D contiguë représentant cette matrice en fonction de rows, cols, i, et j 
+    k = i * cols + j
+
+Q2 Inversement, que valent i et j en fonction de rows, cols, et k ?
+    i = k // cols
+    j = k % cols

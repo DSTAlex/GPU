@@ -18,13 +18,22 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 // in a matrix of size rows x cols, using row-major storage
 //
 __device__ int linear_index(int i, int j, int rows, int cols) {
-    
+    return i * cols + j;
 }
 
 //
 // step 02
 // CUDA kernel add 
 //
+__global__ 
+void add(const int* dx, int* dy, int rows, int cols)
+{
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int j = blockIdx.y * blockDim.y + threadIdx.y;
+    k = linear_index(i, j, rows, cols)
+    if(i > rows || j > cols)
+        dy[k] = dx[k] + dy[k];
+}
 
 
 int main()
@@ -44,16 +53,25 @@ int main()
     int* dx;
     int* dy;
     // 1. allocate on device
+    CUDA_CHECK(cudaMalloc(&dx, rows*cols*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dy, rows*cols*sizeof(int)));
 
     // 2. copy from host to device
+    CUDA_CHECK(cudaMemcpy(dx, x, rows*cols*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(dy, y, rows*cols*sizeof(int), cudaMemcpyHostToDevice));
 
     // 3. launch CUDA kernel
-    // const dim3 threads_per_bloc{32,32,1};
+    const dim3 threads_per_bloc{32,32,1};
+    const dim3 number_of_bloc{(cols + threads_per_bloc.x - 1)/threads_per_bloc.x,
+                                (rows + threads_per_bloc.y -1)/ threads_per_bloc.y ,1}
+    add<<<number_of_bloc, threads_per_bloc>>>(dx, dy, rows, cols);
 
     // 4. copy result from device to host
+    CUDA_CHECK(cudaMemcpy(y, dy, N*sizeof(int), cudaMemcpyDeviceToHost));
 
     // 5. free device memory
-
+    CUDA_CHECK(cudaFree(dx));
+    CUDA_CHECK(cudaFree(dy));
 
 
     // checking results
