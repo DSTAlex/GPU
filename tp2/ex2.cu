@@ -17,9 +17,9 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 // with pitch in bytes
 //
 __device__ 
-inline int* get_ptr(int* base_address, int i, int j, size_t pitch) {
+inline int* get_ptr(const int* base_address, int i, int j, size_t pitch) {
     int adress_in_mat = i * pitch + j * sizeof(int);
-    return (char*)base_address + adress_in_mat;
+    return (int*)((char*)base_address + adress_in_mat);
 }
 
 //
