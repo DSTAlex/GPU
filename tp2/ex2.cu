@@ -56,14 +56,14 @@ int main()
     //
     int* dx;
     int* dy;
-    size_t pitchx, pitchy;
+    size_t pitch;
     // 1. allocate on device
-    CUDA_CHECK(cudaMallocPitch(&dx, &pitchx, cols*sizeof(int), row));
-    CUDA_CHECK(cudaMallocPitch(&dy, &pitchy, cols*sizeof(int), row));
+    CUDA_CHECK(cudaMallocPitch(&dx, &pitch, cols*sizeof(int), rows));
+    CUDA_CHECK(cudaMallocPitch(&dy, &pitch, cols*sizeof(int), rows));
 
     // 2. copy from host to device
-    CUDA_CHECK(cudaMemcpy2D(dx, pitchx, x, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
-    CUDA_CHECK(cudaMemcpy2D(dy, pitchy, y, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy2D(dx, pitch, x, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy2D(dy, pitch, y, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
 
     // 3. launch CUDA kernel
     const dim3 threads_per_bloc{32,32,1};
@@ -73,7 +73,7 @@ int main()
     add<<<number_of_bloc, threads_per_bloc>>>(dx, dy, rows, cols);
 
     // 4. copy result from device to host
-    CUDA_CHECK(cudaMemcpy2D(y, cols*sizeof(int), dy, pitchy, cols*sizeof(int), rows, cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy2D(y, cols*sizeof(int), dy, pitch, cols*sizeof(int), rows, cudaMemcpyDeviceToHost));
 
     // 5. free device memory
     CUDA_CHECK(cudaFree(dx));
