@@ -18,8 +18,8 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 //
 __device__ 
 inline int* get_ptr(int* base_address, int i, int j, size_t pitch) {
-    adress_in_mat = i * pitch + j * sizeof(int);
-    return base_address + adress_in_mat;
+    char* adress_in_mat = i * pitch + j * sizeof(int);
+    return (char*)base_address + adress_in_mat;
 }
 
 //
@@ -32,8 +32,8 @@ void add(const int* dx, int* dy, int rows, int cols, size_t pitch)
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j = blockIdx.y * blockDim.y + threadIdx.y;
     if(j < cols && i < rows)
-        x = *get_ptr(dx, i, j, pitch);
-        y = *get_ptr(dy, i, j, pitch);
+        int x = *get_ptr(dx, i, j, pitch);
+        int y = *get_ptr(dy, i, j, pitch);
         *get_ptr(dy, i, j, pitch) = x + y;
 
 }
