@@ -30,21 +30,23 @@ __host__ Matrix<T>::Matrix(int rows, int cols) :
     m_pitch(0)
 {
     // step 07
-
+    CUDA_CHECK(cudaMallocPitch(&this.m_data_ptr, &this.m_pitch, this.m_cols*sizeof(T), this.m_rows));
+    return this;
 }
 
 template<typename T>
 __host__ void Matrix<T>::free()
 {
     // step 07
-
+    CUDA_CHECK(cudaFree(this.m_data_ptr));
 }
 
 template<typename T>
 __host__ void Matrix<T>::to_cuda(const std::vector<T>& values)
 {
     // step 08
-
+     CUDA_CHECK(cudaMemcpy2D(this.m_data_ptr, pitch, x, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
+    
 }
 
 template<typename T>

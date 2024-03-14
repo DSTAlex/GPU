@@ -4,3 +4,10 @@ Q1 Que vaut l’indice k de cet élément dans le tableau 1D contiguë représen
 Q2 Inversement, que valent i et j en fonction de rows, cols, et k ?
     i = k // cols
     j = k % cols
+
+Q3  Que valent le padding minimal et le pitch associé pour que chaque ligne de la matrice commence à une adresse qui soit un multiple
+paire de 128 ?
+    100 * 4 = 400
+    Le multiple de 128 >400 est 512. 512-400 = 112  
+    Il faut donc un padding de 112 + k*128 avec k [[0 ; +inf]]
+    
