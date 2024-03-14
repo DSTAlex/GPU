@@ -32,10 +32,11 @@ void add(const int* dx, int* dy, int rows, int cols, size_t pitch)
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j = blockIdx.y * blockDim.y + threadIdx.y;
     if(j < cols && i < rows)
+    {
         int x = get_ptr(dx, i, j, pitch)[0];
         int y = get_ptr(dy, i, j, pitch)[0];
         get_ptr(dy, i, j, pitch)[0] = x + y;
-
+    }
 }
 
 
@@ -70,7 +71,7 @@ int main()
     const dim3 number_of_bloc{(rows + threads_per_bloc.x - 1)/threads_per_bloc.x,
                                 (cols + threads_per_bloc.y -1)/ threads_per_bloc.y ,1};
     printf("%i, %i\n", number_of_bloc.x, number_of_bloc.y);
-    add<<<number_of_bloc, threads_per_bloc>>>(dx, dy, rows, cols);
+    add<<<number_of_bloc, threads_per_bloc>>>(dx, dy, rows, cols, pitch);
 
     // 4. copy result from device to host
     CUDA_CHECK(cudaMemcpy2D(y, cols*sizeof(int), dy, pitch, cols*sizeof(int), rows, cudaMemcpyDeviceToHost));
