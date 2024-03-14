@@ -12,6 +12,7 @@ then
     echo "compile $name" 
     nvcc $name --allow-unsupported-compiler -o exo
     ./exo
+    rm exo
 else
     ssh -X -l alexandre.di-santo -p 2200$2 gpgpu.image.lrde.iaas.epita.fr
 fi
