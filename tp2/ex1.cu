@@ -84,7 +84,7 @@ int main()
                 << i << ": expected " 
                 << std::pow(-1,i) * i << '+' << i << '=' << expected_result << ", got " << y[i] << std::endl;
             ok = false;
-            break;
+            //break;
         }
     }
     if(ok) std::cout << "Success" << std::endl;
