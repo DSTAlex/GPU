@@ -28,10 +28,10 @@ __device__ int linear_index(int i, int j, int rows, int cols) {
 __global__ 
 void add(const int* dx, int* dy, int rows, int cols)
 {
-    int j = blockIdx.x * blockDim.x + threadIdx.x;
-    int i = blockIdx.y * blockDim.y + threadIdx.y;
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int j = blockIdx.y * blockDim.y + threadIdx.y;
     int k = linear_index(i, j, rows, cols);
-    if(j <= cols || i <= rows)
+    if(j <= cols && i <= rows)
         dy[k] = dx[k] + dy[k];
 
 }
