@@ -65,7 +65,7 @@ int main()
     const dim3 threads_per_bloc{32,32,1};
     const dim3 number_of_bloc{(cols + threads_per_bloc.x - 1)/threads_per_bloc.x,
                                 (rows + threads_per_bloc.y -1)/ threads_per_bloc.y ,1};
-    printf("%i, %i\n", number_of_bloc.x, number_of_bloc.y)
+    printf("%i, %i\n", number_of_bloc.x, number_of_bloc.y);
     add<<<number_of_bloc, threads_per_bloc>>>(dx, dy, rows, cols);
 
     // 4. copy result from device to host
