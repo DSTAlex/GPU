@@ -31,7 +31,7 @@ void add(const int* dx, int* dy, int rows, int cols)
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j = blockIdx.y * blockDim.y + threadIdx.y;
     int k = linear_index(i, j, rows, cols);
-    if(j <= cols && i <= rows)
+    if(j < cols && i < rows)
         dy[k] = dx[k] + dy[k];
 
 }
