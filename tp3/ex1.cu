@@ -87,6 +87,7 @@ int main()
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
+        printf("z[%i] = %i", i, z[i]);
     }
 
 
