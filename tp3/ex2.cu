@@ -42,7 +42,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
         if (threadIdx.x < thread)
         {
             buffer[threadIdx.x] += buffer[threadIdx.x + thread];
-            printf("%i, %i", threadIdx.x, thread);
+            printf("id=%i, thread=%i\n", threadIdx.x, thread);
         }
         thread = thread / 2;
         __syncthreads();
@@ -89,7 +89,7 @@ int main()
     CUDA_CHECK(cudaFree(dz));
 
     cudaDeviceSynchronize();
-    
+
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
