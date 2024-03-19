@@ -38,7 +38,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     if(threadIdx.x == 0)
     {
         dz[blockIdx.x] = 0;
-        for (int j = 0; j < T; j++)
+        for (int j = 0; j <= T; j++)
         {
             dz[blockIdx.x] += buffer[j];
         }
