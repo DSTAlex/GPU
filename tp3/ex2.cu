@@ -47,14 +47,6 @@ void dot(int N, const int* dx, const int* dy, int* dz)
         __syncthreads();
 
     }
-    if (blockIdx.x ==0 && threadIdx.x == 0)
-    {
-        for(int j = 0; j < T; j++)
-        {
-                printf("(%i)+",buffer[j]);
-        }
-        printf("\nid=%i, thread=%i, buff=%i\n", threadIdx.x, thread, buffer[threadIdx.x]);
-    }
     if (threadIdx.x == 0)
         dz[blockIdx.x] = buffer[0];
 
@@ -103,9 +95,7 @@ int main()
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
-        //printf("z[%i] = %i\n",i, z[i]);
     }
-    printf("z[%i] = %i\n",0, z[0]);
 
 
     // checking results
