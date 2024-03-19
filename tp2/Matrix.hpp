@@ -45,7 +45,7 @@ template<typename T>
 __host__ void Matrix<T>::to_cuda(const std::vector<T>& values)
 {
     // step 08
-     CUDA_CHECK(cudaMemcpy2D(this.m_data_ptr, pitch, x, cols*sizeof(int), cols*sizeof(int), rows, cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy2D(this.m_data_ptr, this.m_pitch, values, values.size() * sizeof(T), values.size() * sizeof(T), this.m_rows, cudaMemcpyHostToDevice));
     
 }
 
@@ -53,7 +53,8 @@ template<typename T>
 __host__ void Matrix<T>::to_cpu(std::vector<T>& values) const
 {
     // step 08
-
+    CUDA_CHECK(cudaMemcpy2D(values, values.size() * sizeof(T),this.m_data_ptr, this.m_pitch, values.size() * sizeof(T), this.m_rows, cudaMemcpyHostToDevice));
+    
 }
 
 template<typename T>
