@@ -37,7 +37,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     }
 
     int thread = T / 2;
-    while (thread > 1)
+    while (thread >= 1)
     {
         if (threadIdx.x < thread)
         {
