@@ -88,6 +88,7 @@ int main()
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
+        printf("%i\n", z[i]);
     }
 
 
