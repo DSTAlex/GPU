@@ -31,7 +31,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
 
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if(i < N)
-        buffer[threadIdx.x] = dx[i] + dy[i];
+        buffer[threadIdx.x] = dx[i] * dy[i];
 
     __syncthreads();
 
