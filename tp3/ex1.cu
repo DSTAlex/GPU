@@ -30,7 +30,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     __shared__ int buffer[T];
 
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if(i < n)
+    if(i < N)
         buffer[threadIdx.x] = dx[i] + dy[i];
 
     __syncthreads();
@@ -73,7 +73,7 @@ int main()
 
     // step 03
     int result = 0;
-    int* z (int*)malloc(B * sizeof(int));
+    int* z = (int*)malloc(B * sizeof(int));
 
     CUDA_CHECK(cudaMemcpy(z, dz, B*sizeof(int), cudaMemcpyDeviceToHost));
 
@@ -81,7 +81,7 @@ int main()
     CUDA_CHECK(cudaFree(dy));
     CUDA_CHECK(cudaFree(dz));
 
-    for (int i = 0 ; i < B, i++)
+    for (int i = 0 ; i < B; i++)
     {
         result += z[i];
     }
