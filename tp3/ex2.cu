@@ -25,6 +25,7 @@ constexpr int T = threads_per_bloc;
 // dz: array of size B
 //
 
+__device__
 void dot(int N, const int* dx, const int* dy, int* dz)
 {
     __shared__ int buffer[T];
@@ -40,7 +41,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     {
         if (threadIdx.x < thread)
             buffer[threadIdx.x] += buffer[threadIdx.x + thread]
-        thread /= 2;
+        thread = thread / 2;
         __syncthreads();
     }
 
