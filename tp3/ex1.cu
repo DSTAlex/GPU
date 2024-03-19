@@ -87,12 +87,6 @@ int main()
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
-        printf("%i = ", z[i]);
-        for(int j =0; j < T; j++)
-        {
-            printf("%i*%i+", x[B*T + j], y[B*T+j]);
-        }
-        printf("\n");
     }
 
 
