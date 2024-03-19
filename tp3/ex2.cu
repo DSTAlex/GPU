@@ -40,7 +40,10 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     while (thread > 1)
     {
         if (threadIdx.x < thread)
+        {
             buffer[threadIdx.x] += buffer[threadIdx.x + thread];
+            printf("%i, %i", threadIdx.x, thread);
+        }
         thread = thread / 2;
         __syncthreads();
     }
@@ -85,10 +88,12 @@ int main()
     CUDA_CHECK(cudaFree(dy));
     CUDA_CHECK(cudaFree(dz));
 
+    cudaDeviceSynchronize();
+    
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
-        printf("%i\n", z[i]);
+        printf("z[%i] = %i\n",i, z[i]);
     }
 
 
