@@ -38,7 +38,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     if(threadIdx.x == 0)
     {
         dz[blockIdx.x] = 0;
-        for (int j = 0; j <= T; j++)
+        for (int j = 0; j < T; j++)
         {
             dz[blockIdx.x] += buffer[j];
         }
@@ -84,7 +84,12 @@ int main()
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
-        printf("%i\n", z[i]);
+        printf("%i = ", z[i]);
+        for(int j =0; j < T; j++)
+        {
+            printf("%i * %i + ", x[B*T + j], y[B*T+j]);
+        }
+        printf("\n");
     }
 
 
