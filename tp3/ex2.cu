@@ -51,6 +51,13 @@ void dot(int N, const int* dx, const int* dy, int* dz)
         }
         thread = thread / 2;
         __syncthreads();
+
+        if (blockIdx.x ==0 && threadIdx.x == 0)
+            {
+                for(int j = 0; j < T; j++)
+                    printf("%i=%i   ", j, buffer[j]);
+                printf("\nid=%i, thread=%i, buff=%i\n", threadIdx.x, thread, buffer[threadIdx.x]);
+            }
     }
 
 }
