@@ -42,7 +42,8 @@ void dot(int N, const int* dx, const int* dy, int* dz)
         if (threadIdx.x < thread)
         {
             buffer[threadIdx.x] += buffer[threadIdx.x + thread];
-            printf("id=%i, thread=%i\n", threadIdx.x, thread);
+            if (blockIdx.x ==0 && threadIdx.x == 0)
+                printf("id=%i, thread=%i\n", threadIdx.x, thread);
         }
         thread = thread / 2;
         __syncthreads();
