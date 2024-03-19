@@ -25,7 +25,26 @@ constexpr int T = threads_per_bloc;
 // dz: array of size B
 //
 
+void dot(int N, const int* dx, const int* dy, int* dz)
+{
+    __shared__ int buffer[T];
 
+    buffer[threadIdx.x] = 0;
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    for(int i = j; i < N; i += gridDim.x * blockDim.x){
+        buffer[threadIdx.x] += dx[i] * dy[i];
+    }
+
+    int thread = T / 2;
+    while (thread > 1)
+    {
+        if (threadIdx.x < thread)
+            buffer[threadIdx.x] += buffer[threadIdx.x + thread]
+        thread /= 2;
+        __syncthreads();
+    }
+
+}
 
 
 
@@ -46,11 +65,29 @@ int main()
     // step 05
     int result = 0;
     int *dx, *dy, *dz;
-    int *z;
+    int *z = (int*)malloc(B * sizeof(int));
 
 
+    CUDA_CHECK(cudaMalloc(&dx, N*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dy, N*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dz, B*sizeof(int)));
+
+    CUDA_CHECK(cudaMemcpy(dx, x, N*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(dy, y, N*sizeof(int), cudaMemcpyHostToDevice));
+
+    dot<<<B,T>>>(N, dx, dy, dz);
 
 
+    CUDA_CHECK(cudaMemcpy(z, dz, B*sizeof(int), cudaMemcpyDeviceToHost));
+
+    CUDA_CHECK(cudaFree(dx));
+    CUDA_CHECK(cudaFree(dy));
+    CUDA_CHECK(cudaFree(dz));
+
+    for (int i = 0 ; i < B; i++)
+    {
+        result += z[i];
+    }
 
 
 
@@ -65,6 +102,7 @@ int main()
 
     free(x);
     free(y);
+    free(z);
 
   return 0;
 }
