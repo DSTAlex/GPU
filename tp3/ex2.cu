@@ -41,12 +41,14 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     {
         if (threadIdx.x < thread)
         {
-            if (blockIdx.x ==0 && threadIdx.x == 0 && false)
-            {
-                for(int j = 0; j < T; j++)
-                    printf("%i=%i   ", j, buffer[j]);
-                printf("\nid=%i, thread=%i, buff=%i\n", threadIdx.x, thread, buffer[threadIdx.x]);
-            }
+            /*
+                if (blockIdx.x == 0 && threadIdx.x == 0 && false)
+                {
+                    for(int j = 0; j < T; j++)
+                        printf("%i=%i   ", j, buffer[j]);
+                    printf("\nid=%i, thread=%i, buff=%i\n", threadIdx.x, thread, buffer[threadIdx.x]);
+                }
+                */
             buffer[threadIdx.x] += buffer[threadIdx.x + thread];
         }
         thread = thread / 2;
@@ -55,7 +57,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
         if (blockIdx.x ==0 && threadIdx.x == 0)
         {
             for(int j = 0; j < T; j++)
-                    printf("%i+",buffer[j]);
+                    printf("(%i)+",buffer[j]);
             printf("\nid=%i, thread=%i, buff=%i\n", threadIdx.x, thread, buffer[threadIdx.x]);
         }
     }
