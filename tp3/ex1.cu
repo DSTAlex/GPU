@@ -30,7 +30,7 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     __shared__ int buffer[T];
 
     buffer[threadIdx.x] = 0;
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
     for(int i = j; i < N; i += gridDim.x * blockDim.x){
         buffer[threadIdx.x] += dx[i] * dy[i];
     }
