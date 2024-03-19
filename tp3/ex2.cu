@@ -41,9 +41,13 @@ void dot(int N, const int* dx, const int* dy, int* dz)
     {
         if (threadIdx.x < thread)
         {
-            buffer[threadIdx.x] += buffer[threadIdx.x + thread];
             if (blockIdx.x ==0 && threadIdx.x == 0)
-                printf("id=%i, thread=%i, buff=%i\n", threadIdx.x, thread, buffer[threadIdx.x]);
+            {
+                for(int j = 0; j < T; j++)
+                    printf("%i=%i", j, buffer[j]);
+                printf("\nid=%i, thread=%i, buff=%i\n", threadIdx.x, thread, buffer[threadIdx.x]);
+            }
+            buffer[threadIdx.x] += buffer[threadIdx.x + thread];
         }
         thread = thread / 2;
         __syncthreads();
@@ -94,7 +98,7 @@ int main()
     for (int i = 0 ; i < B; i++)
     {
         result += z[i];
-        printf("z[%i] = %i\n",i, z[i]);
+        //printf("z[%i] = %i\n",i, z[i]);
     }
 
 
