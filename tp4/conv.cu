@@ -90,10 +90,28 @@ std::vector<int> conv2(const std::vector<int>& x, const std::vector<int>& y)
     //
     // step 03
     //
+    int N = x.size();
+    int M = y.size();
+    int *dz;
 
+    CUDA_CHECK(cudaMalloc(&dz, N*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dx, N*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dy, M*sizeof(int)));
+    
+    CUDA_CHECK(cudaMemcpy(dx, x, N*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(dy, y, M*sizeof(int), cudaMemcpyHostToDevice));
+    
+    kernel::conv2(dx, dy, N, M, dz);
 
+    std::vector<int> z(N);
 
+    CUDA_CHECK(cudaMemcpy(z, dz, N*sizeof(int), cudaMemcpyDeviceToHost));
 
+    CUDA_CHECK(cudaFree(dx));
+    CUDA_CHECK(cudaFree(dy));
+    CUDA_CHECK(cudaFree(dz));
+
+    return z  
 }
 
 namespace kernel {
