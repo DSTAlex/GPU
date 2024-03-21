@@ -101,7 +101,7 @@ std::vector<int> conv2(const std::vector<int>& x, const std::vector<int>& y)
     CUDA_CHECK(cudaMemcpy(dx, x.data(), N*sizeof(int), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(dy, y.data(), M*sizeof(int), cudaMemcpyHostToDevice));
     
-    kernel::conv2(dx, dy, N, M, dz);
+    kernel::conv2<<<(T + N -1) / T, T>>>(dx, dy, N, M, dz);
 
     std::vector<int> z(N);
 
@@ -111,7 +111,7 @@ std::vector<int> conv2(const std::vector<int>& x, const std::vector<int>& y)
     CUDA_CHECK(cudaFree(dy));
     CUDA_CHECK(cudaFree(dz));
 
-    return z  
+    return z;  
 }
 
 namespace kernel {
