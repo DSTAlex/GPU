@@ -98,8 +98,8 @@ std::vector<int> conv2(const std::vector<int>& x, const std::vector<int>& y)
     CUDA_CHECK(cudaMalloc(&dx, N*sizeof(int)));
     CUDA_CHECK(cudaMalloc(&dy, M*sizeof(int)));
     
-    CUDA_CHECK(cudaMemcpy(dx, x, N*sizeof(int), cudaMemcpyHostToDevice));
-    CUDA_CHECK(cudaMemcpy(dy, y, M*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(dx, x.data(), N*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(dy, y.data(), M*sizeof(int), cudaMemcpyHostToDevice));
     
     kernel::conv2(dx, dy, N, M, dz);
 
