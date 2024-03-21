@@ -11,7 +11,7 @@ then
     name=""
     for var in  "$@"
     do
-        if [ "$var" != "-c" ]
+        if [ "$var" -ne "-c" ]
         then
             name="$name $var"
         fi
