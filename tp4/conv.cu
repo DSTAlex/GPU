@@ -41,7 +41,7 @@ std::vector<int> conv1(const std::vector<int>& x, const std::vector<int>& y)
             int k = i + j - P;
             if (k >= 0 and k < N)
             {
-                conv += x[k] * y[j];
+                cov += x[k] * y[j];
             }
         }
         z[i] = cov;
