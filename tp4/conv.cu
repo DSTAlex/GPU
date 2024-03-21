@@ -105,7 +105,7 @@ std::vector<int> conv2(const std::vector<int>& x, const std::vector<int>& y)
 
     std::vector<int> z(N);
 
-    CUDA_CHECK(cudaMemcpy(z, dz, N*sizeof(int), cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy(z.data(), dz, N*sizeof(int), cudaMemcpyDeviceToHost));
 
     CUDA_CHECK(cudaFree(dx));
     CUDA_CHECK(cudaFree(dy));
