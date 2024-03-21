@@ -122,8 +122,34 @@ namespace kernel {
 __global__ 
 void conv3(const int* dx, const int* dy, int N, int M, int* dz)
 {
+    __shared__ int sx[T];
+    i = blockDim.x * blockIdx.x + threadIdx.x;
+    if ( i < N)
+    {
+        sx[threadIdx.x] = dx[i];
+    }
+    __syncthreads();
 
 
+
+    for (int j = 0; j < M; j++)
+    {
+        int k = i + j - P;
+        if (k < blockDim.x * blockIdx.x ||  k > blockDim.x * (blockIdx.x+1))
+        {
+            x = dx[k];
+        }
+        else
+        {
+            x = sx[k - blockDim.x * blockIdx.x];
+        }
+
+        if (k >= 0 and k < N)
+        {
+            dz[i] += x * dy[j];
+        }
+    }
+    
 
 
 }
@@ -143,7 +169,28 @@ std::vector<int> conv3(const std::vector<int>& x, const std::vector<int>& y)
     // step 05
     //
 
+    int N = x.size();
+    int M = y.size();
+    int *dz, *dx, *dy;
 
+    CUDA_CHECK(cudaMalloc(&dz, N*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dx, N*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dy, M*sizeof(int)));
+    
+    CUDA_CHECK(cudaMemcpy(dx, x.data(), N*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(dy, y.data(), M*sizeof(int), cudaMemcpyHostToDevice));
+    
+    kernel::conv3<<<(T + N -1) / T, T>>>(dx, dy, N, M, dz);
+
+    std::vector<int> z(N);
+
+    CUDA_CHECK(cudaMemcpy(z.data(), dz, N*sizeof(int), cudaMemcpyDeviceToHost));
+
+    CUDA_CHECK(cudaFree(dx));
+    CUDA_CHECK(cudaFree(dy));
+    CUDA_CHECK(cudaFree(dz));
+
+    return z;  
 
 
 }
