@@ -72,7 +72,7 @@ void conv2(const int* dx, const int* dy, int N, int M, int* dz)
                 cov += dx[k] * dy[j];
             }
         }
-        dz[i] = cov;
+        //dz[i] = cov;
     }
 }
 
