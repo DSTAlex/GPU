@@ -92,7 +92,7 @@ std::vector<int> conv2(const std::vector<int>& x, const std::vector<int>& y)
     //
     int N = x.size();
     int M = y.size();
-    int *dz;
+    int *dz, *dx, *dy;
 
     CUDA_CHECK(cudaMalloc(&dz, N*sizeof(int)));
     CUDA_CHECK(cudaMalloc(&dx, N*sizeof(int)));
