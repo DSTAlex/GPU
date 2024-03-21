@@ -123,7 +123,7 @@ __global__
 void conv3(const int* dx, const int* dy, int N, int M, int* dz)
 {
     __shared__ int sx[T];
-    i = blockDim.x * blockIdx.x + threadIdx.x;
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
     if ( i < N)
     {
         sx[threadIdx.x] = dx[i];
@@ -134,6 +134,7 @@ void conv3(const int* dx, const int* dy, int N, int M, int* dz)
 
     for (int j = 0; j < M; j++)
     {
+        int x = 0;
         int k = i + j - P;
         if (k < blockDim.x * blockIdx.x ||  k > blockDim.x * (blockIdx.x+1))
         {
