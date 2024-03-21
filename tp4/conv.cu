@@ -60,9 +60,20 @@ __global__
 void conv2(const int* dx, const int* dy, int N, int M, int* dz)
 {
 
-
-
-
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < N)
+    {
+        int cov = 0;
+        for (int j = 0; j < M; j++)
+        {
+            int k = i + j - P;
+            if (k >= 0 and k < N)
+            {
+                cov += dx[k] * dy[j];
+            }
+        }
+        dz[i] = cov;
+    }
 }
 
 } // namespace kernel
