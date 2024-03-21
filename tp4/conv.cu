@@ -137,7 +137,7 @@ void conv3(const int* dx, const int* dy, int N, int M, int* dz)
     {
         int x = 0;
         int k = i + j - P;
-        if (k < blockDim.x * blockIdx.x ||  k > blockDim.x * (blockIdx.x+1))
+        if (k < blockDim.x * blockIdx.x ||  k >= blockDim.x * (blockIdx.x+1))
         {
             x = dx[k];
         }
