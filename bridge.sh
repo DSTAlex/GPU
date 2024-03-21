@@ -11,9 +11,9 @@ then
     name=""
     for var in  "$@"
     do
-        if [ "$var" != "-c"]
+        if [ "$var" != "-c" ]
         then
-            name="$name var"
+            name="$name $var"
         fi
     done
     echo "compile $name" 
