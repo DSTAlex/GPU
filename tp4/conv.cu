@@ -59,7 +59,7 @@ namespace kernel {
 __global__ 
 void conv2(const int* dx, const int* dy, int N, int M, int* dz)
 {
-
+    const int P = (M-1) / 2;
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if (i < N)
     {
