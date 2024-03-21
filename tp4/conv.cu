@@ -122,6 +122,7 @@ namespace kernel {
 __global__ 
 void conv3(const int* dx, const int* dy, int N, int M, int* dz)
 {
+    const int P = (M-1) / 2;
     __shared__ int sx[T];
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if ( i < N)
