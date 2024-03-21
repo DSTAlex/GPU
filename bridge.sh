@@ -1,5 +1,5 @@
 git pull
-dir_path=""
+
 if [ $# -eq 0 ]
 then
     git add *
@@ -8,7 +8,14 @@ then
     git push
 elif [ "$1" = "-c" ]
 then
-    name=$dir_path$1
+    name=""
+    for var in  "$@"
+    do
+        if [ "$var" != "-c"]
+        then
+            name="$name var"
+        fi
+    done
     echo "compile $name" 
     nvcc $name --allow-unsupported-compiler -o exo
     ./exo
