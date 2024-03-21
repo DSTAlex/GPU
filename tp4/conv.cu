@@ -35,10 +35,10 @@ std::vector<int> conv1(const std::vector<int>& x, const std::vector<int>& y)
 
     for (int i =0 ; i < N ; i++)
     {
-        cov = 0;
+        int cov = 0;
         for (int j = 0; j < M; j++)
         {
-            k = i + j - P;
+            int k = i + j - P;
             if (k >= 0 and k < N)
             {
                 conv += x[k] * y[j];
