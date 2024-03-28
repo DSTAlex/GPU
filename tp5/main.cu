@@ -55,6 +55,8 @@ int main()
             std::cout << "Got:\n";
             print_mat(C_test2, N, P);
         }
+        printf("test 3 fail\n");
+        return 0;
     }
     // ====================================================
     // test 2
@@ -155,8 +157,6 @@ int main()
         const std::vector<int> B = getB();
         const std::vector<int> C_sol = getC();
         // ------------------------------------------------
-        printf("test 3 fail\n");
-        return 0;
         const std::vector<int> C_test1 = matmul1(A, B, N, M, P);
         if(C_sol == C_test1)
         {
