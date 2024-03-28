@@ -167,7 +167,10 @@ int main()
             {
                 for (int j = 0 ; j < P; j++)
                 {
-                    std::cout << C_sol[i * P + j] == C_test1[i * P + j] << " ";
+                    if (C_sol[i * P + j] == C_test1[i * P + j])
+                        std::cout << 1 << " ";
+                    else
+                    std::cout << 0 << " ";
                 }
                 std::cout << "\n";
             }
