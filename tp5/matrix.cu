@@ -132,8 +132,8 @@ void matmul3(const int* A, const int* B, int* C, int N, int M, int P)
     {
         __shared__ float s_A[T][T];
         __shared__ float s_B[T][T];
-        s_A[threadIdx.x][threadIdx.y] = A[index1(blockIdx.x, S, threadIdx.x, threadIdx.y, N, M)]; 
-        s_B[threadIdx.x][threadIdx.y] = B[index1(S, blockIdx.y, threadIdx.x, threadIdx.y, N, M)];    
+        s_A[threadIdx.x][threadIdx.y] = A[index2(blockIdx.x, S, threadIdx.x, threadIdx.y, N, M)]; 
+        s_B[threadIdx.x][threadIdx.y] = B[index2(S, blockIdx.y, threadIdx.x, threadIdx.y, N, M)];    
         __syncthreads();
 
         for (int k = 0; k < T; k++)
