@@ -140,7 +140,7 @@ void matmul3(const int* A, const int* B, int* C, int N, int M, int P)
         {
             C[index1(i,j,N,P)] += s_A[threadIdx.x][k] * s_B[k][threadIdx.y];
         }
-        __syncthreads()
+        __syncthreads();
     }
 
 
