@@ -167,9 +167,9 @@ int main()
             {
                 for (int j = 0 ; j < P; j++)
                 {
-                    std::cout << C_sol[index1(i,j,N,P)] == C_test1[index(i,j,N,P)] << "\n";
+                    std::cout << C_sol[index1(i,j,N,P)] == C_test1[index1(i,j,N,P)] << "\n";
                 }
-                std::cout << "\n"
+                std::cout << "\n";
             }
             //std::cout << "Expected:\n";
             //print_mat(C_sol, N, P);
