@@ -201,7 +201,7 @@ int main()
                 {
                     int a = 0;
                     if (C_sol[i* P + j] == C_test3[i*P+j])
-                        a = 1
+                        a = 1;
                     std::cout << a << " ";
                 }
                 std::cout << "\n";
