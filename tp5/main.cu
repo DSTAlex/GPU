@@ -163,21 +163,10 @@ int main()
         else
         {
             std::cout << "Error! matmult1\n";
-            for (int i = 0; i < N; i++)
-            {
-                for (int j = 0 ; j < P; j++)
-                {
-                    if (C_sol[i * P + j] == C_test1[i * P + j])
-                        std::cout << 1 << " ";
-                    else
-                    std::cout << 0 << " ";
-                }
-                std::cout << "\n";
-            }
-            //std::cout << "Expected:\n";
-            //print_mat(C_sol, N, P);
-            //std::cout << "Got:\n";
-            //print_mat(C_test1, N, P);
+            std::cout << "Expected:\n";
+            print_mat(C_sol, N, P);
+            std::cout << "Got:\n";
+            print_mat(C_test1, N, P);
         }
         // ------------------------------------------------
         const std::vector<int> C_test2 = matmul2(A, B, N, M, P);
