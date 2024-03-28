@@ -41,13 +41,9 @@ std::vector<int> matmul1(
             {
                 C[index1(i, j, N,P)] += A[index1(i, k, N ,M)] * B[index1(k,j, M, P)]; 
             }
-            printf("i : %i, j : %i, c : %i\n", i, j , C[index1(i, j, N,P)]);
         }
     }
-
-
-
-
+    print_mat(C, N, P);
     return C;
 }
 
