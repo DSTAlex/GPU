@@ -43,7 +43,7 @@ std::vector<int> matmul1(
             }
         }
     }
-    print_mat(C, N, P);
+    printf("i : %i, j : %i, c : %i\n", 0, 0 , C[index1(0, 0, N,P)]);
     return C;
 }
 
