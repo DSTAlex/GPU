@@ -165,7 +165,7 @@ int main()
             std::cout << "Error! matmult1\n";
             for (int i = 0; i < C_sol.size(); i++)
             {
-                if (C_sol[i] != C_test1[i])
+                if (C_sol[i] == C_test1[i])
                 {
                     std::cout << i << "Expected: " << C_sol[i] << "\n";
                     std::cout << i <<"Got: " << C_test1[i] << "\n";
