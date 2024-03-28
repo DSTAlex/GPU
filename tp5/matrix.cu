@@ -32,12 +32,12 @@ std::vector<int> matmul1(
     // step 02
     //
     std::vector<int> C(N*P);
-    for (int i = 0; i < P; i++)
+    for (long i = 0; i < P; i++)
     {
-        for (int j = 0; j < N; j++)
+        for (long j = 0; j < N; j++)
         {
             C[index1(i,j,N,P)] = 0;
-            for (int k = 0; k < M; k++)
+            for (long k = 0; k < M; k++)
             {
                 C[index1(i, j, N,P)] += A[index1(i, k, N ,M)] * B[index1(k,j, M, P)]; 
             }
