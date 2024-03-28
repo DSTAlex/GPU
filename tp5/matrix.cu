@@ -36,12 +36,12 @@ std::vector<int> matmul1(
     {
         for (int j = 0; j < N; j++)
         {
-            c[index1(i,j,N,P)] = 0;
+            C[index1(i,j,N,P)] = 0;
             for (int k = 0; k < M; k++)
             {
                 C[index1(i, j, N,P)] += A[index1(i, k, N ,M)] * B[index1(k,j, M, P)]; 
             }
-            printf("i : %i, j : %i, c : %i\n", i, j , c[index1(i, j, N,P)]);
+            printf("i : %i, j : %i, c : %i\n", i, j , C[index1(i, j, N,P)]);
         }
     }
 
