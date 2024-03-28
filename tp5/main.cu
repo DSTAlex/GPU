@@ -167,8 +167,8 @@ int main()
             {
                 if (C_sol[i] != C_test1[i])
                 {
-                    std::cout << "Expected: " << i << C_sol[i] << "\n";
-                    std::cout << "Got: " << i << C_test1[i] << "\n";
+                    std::cout << i << "Expected: " << C_sol[i] << "\n";
+                    std::cout << i <<"Got: " << C_test1[i] << "\n";
                 }
             }
             //std::cout << "Expected:\n";
