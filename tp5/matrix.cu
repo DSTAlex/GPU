@@ -128,7 +128,7 @@ void matmul3(const int* A, const int* B, int* C, int N, int M, int P)
         return;
     }
 
-    for (int S = 0; S < (M +T -1)/ T; S++)
+    for (int S = 0; S < (M + T -1)/ T; S++)
     {
         __shared__ float s_A[T][T];
         __shared__ float s_B[T][T];

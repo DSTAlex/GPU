@@ -191,10 +191,21 @@ int main()
         else
         {
             std::cout << "Error! matmult3\n";
-            std::cout << "Expected:\n";
+            //std::cout << "Expected:\n";
             //print_mat(C_sol, N, P);
-            std::cout << "Got:\n";
+            //std::cout << "Got:\n";
             //print_mat(C_test3, N, P);
+            for (int i = 0; i < N; i++)
+            {
+                for (int j =0; j > P; j++)
+                {
+                    a = 0;
+                    if (C_sol[i* P + j] == C_test3[i*P+j])
+                        a = 1
+                    std::cout << a << " ";
+                }
+                std::cout << "\n";
+            }
         }
     }
 

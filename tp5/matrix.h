@@ -29,6 +29,3 @@ std::vector<int> matmul3(
     const std::vector<int>& A,
     const std::vector<int>& B,
     int N, int M, int P);
-
-
-int index1(int i, int j, int rows, int cols);
