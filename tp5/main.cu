@@ -163,9 +163,14 @@ int main()
         else
         {
             std::cout << "Error! matmult1\n";
-            std::cout << "Expected:\n";
+            for (int i = 0; i < C_sol.size(); i++)
+            {
+                if (C_sol[i] != C_test1[1])
+                std::cout << i<< "\n";
+            }
+            //std::cout << "Expected:\n";
             //print_mat(C_sol, N, P);
-            std::cout << "Got:\n";
+            //std::cout << "Got:\n";
             //print_mat(C_test1, N, P);
         }
         // ------------------------------------------------
