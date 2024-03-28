@@ -163,10 +163,13 @@ int main()
         else
         {
             std::cout << "Error! matmult1\n";
-            for (int i = 0; i < C_sol.size(); i++)
+            for (int i = 0; i < N; i++)
             {
-                if (C_sol[i] != C_test1[1])
-                std::cout << i<< "\n";
+                for (int j = 0 ; j < P; j++)
+                {
+                    std::cout << C_sol[index1(i,j,N,P)] == C_test1[index(i,j,N,P)] << "\n";
+                }
+                std::cout << "\n"
             }
             //std::cout << "Expected:\n";
             //print_mat(C_sol, N, P);
