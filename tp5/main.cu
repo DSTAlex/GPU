@@ -167,7 +167,7 @@ int main()
             {
                 for (int j = 0 ; j < P; j++)
                 {
-                    std::cout << C_sol[index1(i,j,N,P)] == C_test1[index1(i,j,N,P)] << "\n";
+                    std::cout << C_solindex1(i,j,N,P)] == C_test1[index1(i,j,N,P)] << "\n";
                 }
                 std::cout << "\n";
             }
