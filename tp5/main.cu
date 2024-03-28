@@ -136,7 +136,7 @@ int main()
         }
         else
         {
-            std::cout << "Error! matmult3\n";
+            std::cout << "Error!\n";
             std::cout << "Expected:\n";
             print_mat(C_sol, N, P);
             std::cout << "Got:\n";
@@ -164,9 +164,9 @@ int main()
         {
             std::cout << "Error!\n";
             std::cout << "Expected:\n";
-            print_mat(C_sol, N, P);
+            //print_mat(C_sol, N, P);
             std::cout << "Got:\n";
-            print_mat(C_test1, N, P);
+            //print_mat(C_test1, N, P);
         }
         // ------------------------------------------------
         const std::vector<int> C_test2 = matmul2(A, B, N, M, P);
@@ -178,9 +178,9 @@ int main()
         {
             std::cout << "Error!\n";
             std::cout << "Expected:\n";
-            print_mat(C_sol, N, P);
+            //print_mat(C_sol, N, P);
             std::cout << "Got:\n";
-            print_mat(C_test2, N, P);
+            //print_mat(C_test2, N, P);
         }
         // ------------------------------------------------
         const std::vector<int> C_test3 = matmul3(A, B, N, M, P);
@@ -192,9 +192,9 @@ int main()
         {
             std::cout << "Error!\n";
             std::cout << "Expected:\n";
-            print_mat(C_sol, N, P);
+            //print_mat(C_sol, N, P);
             std::cout << "Got:\n";
-            print_mat(C_test3, N, P);
+            //print_mat(C_test3, N, P);
         }
     }
 
