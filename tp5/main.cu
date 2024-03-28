@@ -199,7 +199,7 @@ int main()
             {
                 for (int j =0; j > P; j++)
                 {
-                    a = 0;
+                    int a = 0;
                     if (C_sol[i* P + j] == C_test3[i*P+j])
                         a = 1
                     std::cout << a << " ";
