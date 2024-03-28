@@ -111,8 +111,7 @@ namespace kernel {
 //
 __device__ int index2(int i, int j, int bi, int bj, int rows, int cols)
 {
-
-
+    return index1(i * T + bi, j * T + bj, rows, cols);
 }
 
 //
@@ -121,7 +120,27 @@ __device__ int index2(int i, int j, int bi, int bj, int rows, int cols)
 __global__
 void matmul3(const int* A, const int* B, int* C, int N, int M, int P)
 {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    int j = blockDim.y * blockIdx.y + threadIdx.y;
 
+    if (i >= N || j >= P)
+    {
+        return;
+    }
+
+    for (int S = 0; S < (M +T -1)/ T; S++)
+    {
+        __shared__ float s_A[T][T];
+        __shared__ float s_B[T][T];
+        s_A[threadIdx.x][threadIdx.y] = A[index1(blockIdx.x, S, threadIdx.x, threadIdx.y, N, M)]; 
+        s_B[threadIdx.x][threadIdx.y] = B[index1(S, blockIdx.y, threadIdx.x, threadIdx.y, N, M)];    
+        __syncthreads();
+
+        for (int k = 0; k < T; k++)
+        {
+            C[index1(i,j,N,P)] += s_A[threadIdx.x][k] * s_B[k][threadIdx.y];
+        }
+    }
 
 
 }
@@ -139,8 +158,25 @@ std::vector<int> matmul3(
     //
     // step 07
     //
+    int *da, *db, *dc;
     std::vector<int> C(N*P);
 
+    CUDA_CHECK(cudaMalloc(&da, A.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&db, B.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dc, C.size()*sizeof(int)));
+
+    CUDA_CHECK(cudaMemcpy(da, A.data(), A.size()*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(db, B.data(), B.size()*sizeof(int), cudaMemcpyHostToDevice));
+
+    dim3 thread_bloc = {T, T, 1};
+    dim3 bloc = {(N + T - 1) / T, (P + T - 1)/T, 1};
+    kernel::matmul3<<<bloc, thread_bloc>>>(da, db, dc, N, M, P);
+
+    CUDA_CHECK(cudaMemcpy(C.data(), dc, C.size()*sizeof(int), cudaMemcpyDeviceToHost));
+
+    CUDA_CHECK(cudaFree(da));
+    CUDA_CHECK(cudaFree(db));
+    CUDA_CHECK(cudaFree(dc));
 
 
 
