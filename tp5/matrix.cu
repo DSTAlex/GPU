@@ -32,9 +32,9 @@ std::vector<int> matmul1(
     // step 02
     //
     std::vector<int> C(N*P);
-    for (long i = 0; i < P; i++)
+    for (long i = 0; i < N; i++)
     {
-        for (long j = 0; j < N; j++)
+        for (long j = 0; j < P; j++)
         {
             //C[index1(i,j,N,P)] = 0;
             for (long k = 0; k < M; k++)
