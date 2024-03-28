@@ -135,7 +135,7 @@ void matmul3(const int* A, const int* B, int* C, int N, int M, int P)
     for (int S = 0; S < (M + T -1)/ T; S++)
     {
         s_A[threadIdx.x][threadIdx.y] = A[index2(blockIdx.x, S, threadIdx.x, threadIdx.y, N, M)]; 
-        s_B[threadIdx.x][threadIdx.y] = B[index2(S, blockIdx.y, threadIdx.x, threadIdx.y, N, M)];    
+        s_B[threadIdx.x][threadIdx.y] = B[index2(S, blockIdx.y, threadIdx.x, threadIdx.y, M, P)];    
         __syncthreads();
 
         for (int k = 0; k < T; k++)
