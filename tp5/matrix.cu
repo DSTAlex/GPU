@@ -92,7 +92,7 @@ std::vector<int> matmul2(
     CUDA_CHECK(cudaMemcpy(db, B.data(), B.size()*sizeof(int), cudaMemcpyHostToDevice));
 
     printf("%i\n", T);
-
+    exit();
     //kernel::matmul2<<<>>>(da, db, dc, N, M, P);
 
 
