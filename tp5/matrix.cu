@@ -36,7 +36,7 @@ std::vector<int> matmul1(
     {
         for (long j = 0; j < N; j++)
         {
-            C[index1(i,j,N,P)] = 0;
+            //C[index1(i,j,N,P)] = 0;
             for (long k = 0; k < M; k++)
             {
                 C[index1(i, j, N,P)] += A[index1(i, k, N ,M)] * B[index1(k,j, M, P)]; 
