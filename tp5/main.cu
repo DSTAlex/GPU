@@ -164,8 +164,10 @@ int main()
         {
             std::cout << "Error! matmult1\n";
             std::cout << "Expected:\n";
+            printf("%i\n", C_sol[0]);
             //print_mat(C_sol, N, P);
             std::cout << "Got:\n";
+            printf("%i\n", C_test1[0]);
             //print_mat(C_test1, N, P);
         }
         // ------------------------------------------------
