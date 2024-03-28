@@ -55,7 +55,16 @@ namespace kernel {
 __global__
 void matmul2(const int* A, const int* B, int* C, int N, int M, int P)
 {
+    i = blockDim.x * blockIdx.x + threadIdx.x;
+    j = blockDim.y * blockIdx.y + threadIdx.y;
 
+    if (i < N && j < P)
+    {
+        for (int k = 0; k < M; k++)
+        {
+            C[index1(i, j, N,P)] += A[index1(i, k, N ,M)] * B[index1(k,j, M, P)]; 
+        }
+    }
 
 }
 
@@ -72,7 +81,20 @@ std::vector<int> matmul2(
     //
     // step 04
     //
+    int *da, *db, *dc;
     std::vector<int> C(N*P);
+
+    CUDA_CHECK(cudaMalloc(&da, A.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&db, B.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dc, C.size()*sizeof(int)));
+
+    CUDA_CHECK(cudaMemcpy(da, a.data(), A.size()*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(db, b.data(), B.size()*sizeof(int), cudaMemcpyHostToDevice));
+
+    int a = T;
+
+    //kernel::matmul2<<<>>>(da, db, dc, N, M, P);
+
 
 
 

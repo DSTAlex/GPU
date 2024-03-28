@@ -55,8 +55,6 @@ int main()
             std::cout << "Got:\n";
             print_mat(C_test2, N, P);
         }
-        printf("test 3 fail\n");
-        return 0;
     }
     // ====================================================
     // test 2
