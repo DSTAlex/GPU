@@ -91,13 +91,15 @@ std::vector<int> matmul2(
     CUDA_CHECK(cudaMemcpy(da, A.data(), A.size()*sizeof(int), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(db, B.data(), B.size()*sizeof(int), cudaMemcpyHostToDevice));
 
-    printf("%i\n", B);
-    exit(0);
-    //kernel::matmul2<<<>>>(da, db, dc, N, M, P);
+    dim3 thread_bloc = {T, T, 1};
+    dim3 bloc = {(N + T - 1) / T, (P + T - 1), 1};
+    kernel::matmul2<<<bloc, thread_bloc>>>(da, db, dc, N, M, P);
 
+    CUDA_CHECK(cudaMemcpy(C.data(), dc, C.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
-
-
+    CUDA_CHECK(cudaFree(da));
+    CUDA_CHECK(cudaFree(db));
+    CUDA_CHECK(cudaFree(dc));
 
     return C;
 }
