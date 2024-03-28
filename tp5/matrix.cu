@@ -91,7 +91,7 @@ std::vector<int> matmul2(
     CUDA_CHECK(cudaMemcpy(db, B.data(), B.size()*sizeof(int), cudaMemcpyHostToDevice));
 
     dim3 thread_bloc = {T, T, 1};
-    dim3 bloc = {(N + T - 1) / T, (P + T - 1)/T, 1};
+    dim3 bloc = {(unsigned int)((N + T - 1) / T), (unsigned int)((P + T - 1) / T), 1};
     kernel::matmul2<<<bloc, thread_bloc>>>(da, db, dc, N, M, P);
 
     CUDA_CHECK(cudaMemcpy(C.data(), dc, C.size()*sizeof(int), cudaMemcpyDeviceToHost));
