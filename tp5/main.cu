@@ -155,7 +155,7 @@ int main()
         const std::vector<int> B = getB();
         const std::vector<int> C_sol = getC();
         // ------------------------------------------------
-        const std::vector<int> C_test1 = matmul1(A, B, N, M, P);
+        //const std::vector<int> C_test1 = matmul1(A, B, N, M, P);
         if(C_sol == C_test1)
         {
             std::cout << "matmul1: Success\n";
