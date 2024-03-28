@@ -55,8 +55,8 @@ namespace kernel {
 __global__
 void matmul2(const int* A, const int* B, int* C, int N, int M, int P)
 {
-    i = blockDim.x * blockIdx.x + threadIdx.x;
-    j = blockDim.y * blockIdx.y + threadIdx.y;
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    int j = blockDim.y * blockIdx.y + threadIdx.y;
 
     if (i < N && j < P)
     {
@@ -88,8 +88,8 @@ std::vector<int> matmul2(
     CUDA_CHECK(cudaMalloc(&db, B.size()*sizeof(int)));
     CUDA_CHECK(cudaMalloc(&dc, C.size()*sizeof(int)));
 
-    CUDA_CHECK(cudaMemcpy(da, a.data(), A.size()*sizeof(int), cudaMemcpyHostToDevice));
-    CUDA_CHECK(cudaMemcpy(db, b.data(), B.size()*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(da, A.data(), A.size()*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(db, B.data(), B.size()*sizeof(int), cudaMemcpyHostToDevice));
 
     int a = T;
 
