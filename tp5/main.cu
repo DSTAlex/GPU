@@ -136,7 +136,7 @@ int main()
         }
         else
         {
-            std::cout << "Error!\n";
+            std::cout << "Error! matmult3\n";
             std::cout << "Expected:\n";
             print_mat(C_sol, N, P);
             std::cout << "Got:\n";
