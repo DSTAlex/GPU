@@ -17,7 +17,7 @@ then
         fi
     done
     echo "compile $name" 
-    nvcc $name --allow-unsupported-compiler -o exo
+    nvcc $name --allow-unsupported-compiler --extended-lambda -o exo
     ./exo
     rm exo
 elif [ "$1" = "-b" ]
