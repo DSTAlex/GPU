@@ -17,12 +17,13 @@ namespace kernel {
 // CUDA kernel map
 // ...
     
-    //template<typename F>
-    __device__ void map(int* dx, int N) //, F f)
+    template<typename F>
+    void map(int* dx, int N, F f)
     {
         int i = blockIdx.x * blockDim.x + threadIdx.x;
         if (i < N)
-            dx[i] = (dx[i]);
+            dx[i] = f(dx[i]);
+
     }
     
 } // namespace kernel
@@ -36,7 +37,7 @@ void map(std::vector<int>& x, F f)
     CUDA_CHECK(cudaMalloc(&dx, x.size()*sizeof(int)));
     CUDA_CHECK(cudaMemcpy(dx, x.data(), x.size()*sizeof(int), cudaMemcpyHostToDevice));
 
-    kernel::map<<<(T + x.size() -1) / T, T>>>(dx, x.size());
+    kernel::map<<<(T + x.size() -1) / T, T>>>(dx, x.size(), f);
 
     CUDA_CHECK(cudaMemcpy(x.data(), dx, x.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
