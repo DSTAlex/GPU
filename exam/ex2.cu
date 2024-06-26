@@ -127,7 +127,7 @@ std::vector<int> matvecmul3(
 
     std::vector<int> c(A.size()/b.size(), 0);
 
-    print("%i\n", 5 % 3);
+    printf("%i\n", 5 % 3);
 
     CUDA_CHECK(cudaMemcpy(c.data(), dc, A.size()/b.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
