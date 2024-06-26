@@ -101,7 +101,7 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 
         for (int k = 0; k < T; k++)
         {
-           c[i % N] += 0; //s_A[(i % N )% S][k] * s_B[k];
+           c[i % N] += s_A[i % N][k] * s_B[k];
         }
         __syncthreads();
     }
