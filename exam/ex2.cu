@@ -83,7 +83,6 @@ __global__
 void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
-
     if (i >= N * M)
     {
         return;
@@ -94,9 +93,9 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 
     for (int S = 0; S < (M + T -1)/ T; S++)
     {
-        s_A[threadIdx.x / blockDim.x][threadIdx.x % blockDim.x] = A[(threadIdx.x / blockDim.x) * M + (threadIdx.x % blockDim.x) + S * blockDim.x]; 
-        if (threadIdx.x < blockDim.x)
-            s_B[threadIdx.x] = b[S * blockDim.x + threadIdx.x];    
+        s_A[threadIdx.x / T][threadIdx.x % T] = A[(threadIdx.x / T) * M + (threadIdx.x % T) + S * T]; 
+        if (threadIdx.x < T)
+            s_B[threadIdx.x] = b[S * T + threadIdx.x];    
         __syncthreads();
 
         for (int k = 0; k < T; k++)
