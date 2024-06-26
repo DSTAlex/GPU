@@ -37,7 +37,7 @@ void map(std::vector<int>& x, F f)
     CUDA_CHECK(cudaMalloc(&dx, x.size()*sizeof(int)));
     CUDA_CHECK(cudaMemcpy(dx, x.data(), x.size()*sizeof(int), cudaMemcpyHostToDevice));
 
-    kernel::map<<<(T + x.size() -1) / T, T>>>(dx, f);
+    kernel::map<<<(T + x.size() -1) / T, T>>>(dx, x.size(), f);
 
     CUDA_CHECK(cudaMemcpy(x.data(), dx, x.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
@@ -57,7 +57,7 @@ int main()
 
 
     // apply square function: f(u) = u^2
-    map<lambda [](int)->int>( x, []__device__(const int u){ return u * u; } );
+    map( x, []__device__(const int u){ return u * u; } );
 
 
     // check result
