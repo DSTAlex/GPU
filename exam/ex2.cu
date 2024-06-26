@@ -19,7 +19,7 @@ std::vector<int> matvecmul1(
     const std::vector<int>& b)
 {
     // ...
-    std::vector<int> res(b.size(), 0);
+    std::vector<int> res(A.size()/b.size(), 0);
 
     for(int i =0; i< A.size()/b.size(); i++)
         {
