@@ -16,7 +16,7 @@ namespace kernel {
 
 // CUDA kernel map
 // ...
-    
+    __device__
     template<typename F>
     void map(int* dx, int N, F f)
     {
