@@ -101,8 +101,8 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 
         for (int k = 0; k < T; k++)
         {
-           c[i / N] += s_B[k];//s_A[i / N][k] * s_B[k];
-           c[k] = s_B[k];
+           //c[i / N] += s_B[k];//s_A[i / N][k] * s_B[k];
+           c[k] = s_A[k][0];
         }
         
         //c[i/ N] = s_A[i / N][1];
