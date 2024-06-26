@@ -115,7 +115,24 @@ std::vector<int> matvecmul3(
     const std::vector<int>& A,
     const std::vector<int>& b)
 {
-    // ...
-    return {};
+       int * dA, *db, *dc;
+    CUDA_CHECK(cudaMalloc(&dA, A.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&db, b.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dc, A.size()/b.size()*sizeof(int)));
+
+    CUDA_CHECK(cudaMemcpy(dA, A.data(), A.size()*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(db, b.data(), b.size()*sizeof(int), cudaMemcpyHostToDevice));
+
+    kernel::matvecmul3<<<(T + A.size()/b.size() -1) / T, T>>>(dA, db, dc, A.size()/b.size(), b.size());
+
+    std::vector<int> c(A.size()/b.size());
+    CUDA_CHECK(cudaMemcpy(c.data(), dc, A.size()/b.size()*sizeof(int), cudaMemcpyDeviceToHost));
+
+    CUDA_CHECK(cudaFree(dA));
+    CUDA_CHECK(cudaFree(db));
+    CUDA_CHECK(cudaFree(dc));
+    
+    return c;
+
 }
 
