@@ -101,7 +101,8 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 
         for (int k = 0; k < T; k++)
         {
-            c[i % N] += s_A[(i % N )% S][k] * s_B[k];
+            c[0] = 0;
+            //c[i % N] += s_A[(i % N )% S][k] * s_B[k];
         }
         __syncthreads();
     }
@@ -127,7 +128,6 @@ std::vector<int> matvecmul3(
 
     std::vector<int> c(A.size()/b.size(), 0);
 
-    printf("%i %i \n" , A.size()/b.size(), c.size());
     CUDA_CHECK(cudaMemcpy(c.data(), dc, A.size()/b.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
     CUDA_CHECK(cudaFree(dA));
