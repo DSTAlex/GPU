@@ -104,8 +104,8 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
             c[i % N] += s_A[(i % N )% S][k] * s_B[k];
         }
         __syncthreads();
+    }
 }
-
 } // namespace kernel
 
 //
