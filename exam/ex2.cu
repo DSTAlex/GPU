@@ -37,6 +37,15 @@ __global__
 void matvecmul2(const int* A, const int* b, int* c, int N, int M)
 {
     // ...
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < N)
+    {
+        c[i] = 0;
+        for (int j=0; j < M; j++)
+        {
+            c[i] += A[i*M + j];
+        }
+    }
 }
 
 } // namespace kernel
@@ -48,8 +57,24 @@ std::vector<int> matvecmul2(
     const std::vector<int>& A,
     const std::vector<int>& b)
 {
-    // ...
-    return {};
+    int * dA, db, dc;
+    CUDA_CHECK(cudaMalloc(&dA, A.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&db, b.size()*sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&dc, A.size()/b.size()*sizeof(int)));
+
+    CUDA_CHECK(cudaMemcpy(dA, A.data(), A.size()*sizeof(int), cudaMemcpyHostToDevice));
+    CUDA_CHECK(cudaMemcpy(db, b.data(), b.size()*sizeof(int), cudaMemcpyHostToDevice));
+
+    kernel::matvecmul2<<<(T + b.size() -1) / T, T>>>(dA, db, dc, A.size()/b.size(), b.size());
+
+    std::vector<int> c;
+    CUDA_CHECK(cudaMemcpy(c.data(), dc, A.size()/b.size()*sizeof(int), cudaMemcpyDeviceToHost));
+
+    CUDA_CHECK(cudaFree(dA));
+    CUDA_CHECK(cudaFree(db));
+    CUDA_CHECK(cudaFree(dc));
+    
+    return c;
 }
 
 namespace kernel {
