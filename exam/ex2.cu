@@ -93,7 +93,7 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 
     for (int S = 0; S < (M + T -1)/ T; S++)
     {
-        s_A[threadIdx.x / T][threadIdx.x % T] = A[(threadIdx.x / T) * M + (threadIdx.x % T) + S * T]; 
+        s_A[threadIdx.x / 4][threadIdx.x % 4] = A[(threadIdx.x / 4) * M + (threadIdx.x % 4) + S * 4]; 
         if (threadIdx.x < T)
             s_B[threadIdx.x] = b[S * T + threadIdx.x];    
         __syncthreads();
