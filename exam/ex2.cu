@@ -57,7 +57,7 @@ std::vector<int> matvecmul2(
     const std::vector<int>& A,
     const std::vector<int>& b)
 {
-    int * dA, db, dc;
+    int * dA, *db, *dc;
     CUDA_CHECK(cudaMalloc(&dA, A.size()*sizeof(int)));
     CUDA_CHECK(cudaMalloc(&db, b.size()*sizeof(int)));
     CUDA_CHECK(cudaMalloc(&dc, A.size()/b.size()*sizeof(int)));
