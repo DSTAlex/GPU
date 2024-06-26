@@ -94,7 +94,7 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 
     for (int S = 0; S < (M + T -1)/ T; S++)
     {
-        s_A[threadIdx.x / blockDim.x][threadIdx.x % blockDim.x] = A[(threadIdx.x / blockDim.x) * M + (threadIdx.x % blockDim.x) * S * blockDim.x]; 
+        s_A[threadIdx.x / blockDim.x][threadIdx.x % blockDim.x] = A[(threadIdx.x / blockDim.x) * M + (threadIdx.x % blockDim.x) + S * blockDim.x]; 
         if (threadIdx.x < blockDim.x)
             s_B[threadIdx.x] = b[S * blockDim.x + threadIdx.x];    
         __syncthreads();
@@ -103,7 +103,7 @@ void matvecmul3(const int* A, const int* b, int* c, int N, int M)
         {
            c[i / N] += s_A[i / N][k] * s_B[k];
         }
-        c[i/ N] = s_A[i / N][0];
+        c[i/ N] = s_A[i / N][1];
         __syncthreads();
     }
 }
