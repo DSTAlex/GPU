@@ -57,7 +57,7 @@ int main()
 
 
     // apply square function: f(u) = u^2
-    map( x, []__device__(const int u){ return u * u; } );
+    map<lambda [](int)->int>( x, []__device__(const int u){ return u * u; } );
 
 
     // check result
