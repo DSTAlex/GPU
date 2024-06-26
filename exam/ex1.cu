@@ -18,7 +18,7 @@ namespace kernel {
 // ...
     
     template<typename F>
-    void map(int* dx, int N, F f)
+    __device__ void map(int* dx, int N, F f)
     {
         int i = blockIdx.x * blockDim.x + threadIdx.x;
         if (i < N)
