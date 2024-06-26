@@ -22,7 +22,7 @@ namespace kernel {
     {
         int i = blockIdx.x * blockDim.x + threadIdx.x;
         if (i < N)
-            x[i] = f(x[i]);
+            dx[i] = f(dx[i]);
 
     }
     
