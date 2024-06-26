@@ -82,7 +82,28 @@ namespace kernel {
 __global__
 void matvecmul3(const int* A, const int* b, int* c, int N, int M)
 {
-    // ...
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+    if (i >= N)
+    {
+        return;
+    }
+
+    __shared__ float s_A[T][T];
+    __shared__ float s_B[T];
+
+    for (int S = 0; S < (M + T -1)/ T; S++)
+    {
+        s_A[threadIdx.x / blockDim.x][threadIdx.x % blockDim.x] = A[i]; 
+        if (threadIdx.x < blockDim.x)
+        s_B[threadIdx.x] = b[S * blockDim.x + threadIdx.x];    
+        __syncthreads();
+
+        for (int k = 0; k < T; k++)
+        {
+            C[i % N] += s_A[(i % N )% S][k] * s_B[k];
+        }
+        __syncthreads();
 }
 
 } // namespace kernel

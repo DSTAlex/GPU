@@ -99,10 +99,10 @@ int main()
             std::cout << "Test 3: Success\n";
         } else {
             std::cout << "Test 3: Error!\n";
-             std::cout << "expected:\n";
-             print_vec(c);
-             std::cout << "got:\n";
-             print_vec(c_test);
+            // std::cout << "expected:\n";
+            // print_vec(c);
+            // std::cout << "got:\n";
+            // print_vec(c_test);
         }
     }
     // ====================================================
