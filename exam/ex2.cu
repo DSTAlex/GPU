@@ -43,7 +43,7 @@ void matvecmul2(const int* A, const int* b, int* c, int N, int M)
         c[i] = 0;
         for (int j=0; j < M; j++)
         {
-            c[i] += A[i*M + j];
+            c[i] += A[i*M + j] * b[j];
         }
     }
 }
