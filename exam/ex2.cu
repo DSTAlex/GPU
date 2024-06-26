@@ -19,7 +19,16 @@ std::vector<int> matvecmul1(
     const std::vector<int>& b)
 {
     // ...
-    return {};
+    std::vector<int> res(b.size(), 0);
+
+    for(int i =0; i< A.size()/b.size(); i++)
+        {
+            for(int j = 0; j < b.size(); j++)
+            {
+                res[i] += A[i * b.size() + j] * b[j];
+            }
+        }
+    return res;
 }
 
 namespace kernel {
