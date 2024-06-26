@@ -20,7 +20,7 @@ namespace kernel {
     template<typename F>
     __device__  void map(int* dx, int N, F f)
     {
-        i = blockIdx.x * blockDim.x + threadIdx.x;
+        int i = blockIdx.x * blockDim.x + threadIdx.x;
         if (i < N)
             x[i] = f(x[i]);
 
