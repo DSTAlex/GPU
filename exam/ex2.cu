@@ -67,7 +67,7 @@ std::vector<int> matvecmul2(
 
     kernel::matvecmul2<<<(T + b.size() -1) / T, T>>>(dA, db, dc, A.size()/b.size(), b.size());
 
-    std::vector<int> c;
+    std::vector<int> c(A.size()/b.size());
     CUDA_CHECK(cudaMemcpy(c.data(), dc, A.size()/b.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
     CUDA_CHECK(cudaFree(dA));
