@@ -16,9 +16,9 @@ namespace kernel {
 
 // CUDA kernel map
 // ...
-    __device__ 
+    
     template<typename F>
-    void map(int* dx, int N, F f)
+    __device__  void map(int* dx, int N, F f)
     {
         i = blockIdx.x * blockDim.x + threadIdx.x;
         if (i < N)
