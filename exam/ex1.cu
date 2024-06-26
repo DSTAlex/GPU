@@ -37,7 +37,7 @@ void map(std::vector<int>& x, F f)
     CUDA_CHECK(cudaMalloc(&dx, x.size()*sizeof(int)));
     CUDA_CHECK(cudaMemcpy(dx, x.data(), x.size()*sizeof(int), cudaMemcpyHostToDevice));
 
-    kernel::map<<<(T + x.size() -1) / T, T>>>(x, f);
+    kernel::map<<<(T + x.size() -1) / T, T>>>(dx, f);
 
     CUDA_CHECK(cudaMemcpy(x.data(), dx, x.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
