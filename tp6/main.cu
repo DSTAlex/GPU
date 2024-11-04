@@ -99,7 +99,8 @@ void scan_gpu2(int* x)
     for (int offset = 2; offset < 3; offset*=2)
     {
         if (i * offset - offset +1 > 0)
-            x[i * offset + 1] += x[i * offset +1- offset];
+            //x[i * offset + 1] += x[i * offset +1- offset];
+            x[i * offset + 1] = 0;
     }
 
 }
