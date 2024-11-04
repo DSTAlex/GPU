@@ -96,13 +96,13 @@ void scan_gpu2(int* x)
 {
     int i = threadIdx.x;
 
-    int truc = 2;
+    int truc = 1;
     for (int offset = 2; offset < T; offset*=2)
     {
-        if ( i % truc == 1 || offset == 2)
+        if ( truc == i - 1 || offset == 2)
         {
             //x[i * offset + 1] += x[i * offset +1- offset/2];
-            x[i * offset + 1] = offset * 10 + i;
+            x[i * offset + 1] = truc ; //offset * 10 + i;
         }
         else
             break;
