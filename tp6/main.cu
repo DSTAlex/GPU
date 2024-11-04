@@ -38,7 +38,7 @@ void scan_gpu1(int* x)
     int b1 = 0;
     int b2 = T;
 
-    for (int offset = 1; i <N; i*=2)
+    for (int offset = 1; i < T; i*=2)
     {
         if (offset < i)
         {
@@ -49,7 +49,9 @@ void scan_gpu1(int* x)
             buffers[i+ offset+ b2] += buffers[i + b1];
         }
         __syncthreads();
-        (b2,b1) = (b1,b2);
+        int tmp = b2;
+        b2 = b1;
+        b1 = tmp;
     }
     x[i] = buffers[i + b1];
 
