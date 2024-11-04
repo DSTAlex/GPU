@@ -97,7 +97,7 @@ void scan_gpu2(int* x)
     int i = threadIdx.x;
 
     int truc = 1;
-    for (int offset = 2; offset < T; offset*=2)
+    for (int offset = 2; offset < 3; offset*=2)
     {
         if (i * offset + 1 < T)
         {
