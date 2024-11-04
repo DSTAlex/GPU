@@ -12,14 +12,13 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 // sequential exclusive scan on the CPU
 std::vector<int> scan_cpu(const std::vector<int>& x)
 {
-    std::vector<int> res = std::vector(x->size()) ;
+    std::vector<int> res = std::vector() ;
     res[0] = 0;
     for (int i = 1; i < x->size()-1; i++)
     {
         res[i] = res[i-1] + x[i];
     }
     return res;
-    return {};
 }
 
 
@@ -78,7 +77,7 @@ int main()
         const std::vector<int> y_test = scan_cpu(x);
         if(y_test != y_sol) {
             std::cout << "failure" << std::endl;
-            std::cout << "  expected = [3,2,5,6,8,7,4,1,]" << std::endl;
+            std::cout << "  expected = [0,3,5,10,16,24,31,35]" << std::endl;
             std::cout << "  get      = [";
             for(int val : y_test) std::cout << val << ",";
             std::cout << "]" << std::endl;
