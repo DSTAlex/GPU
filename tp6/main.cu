@@ -35,25 +35,22 @@ void scan_gpu1(int* x)
     buffers[i] = x[i];
     __syncthreads();
 
-    int b1 = 0;
-    int b2 = T;
 
     for (int offset = 1; offset < T; offset*=2)
     {
         if (offset < i)
         {
-            buffers[i + b2] += buffers[i + b1];
+            buffers[i + T] += buffers[i];
         }
         else
         {
-            buffers[i+ offset+ b2] += buffers[i + b1];
+            buffers[i+ offset+ T] += buffers[i];
         }
         __syncthreads();
-        int tmp = b2;
-        b2 = b1;
-        b1 = tmp;
+        buffers[i] = buffers[i+T];
+        __syncthreads();
     }
-    x[i] = buffers[i + b1];
+    x[i] = buffers[i];
 }
 } // namespace kernel
 
