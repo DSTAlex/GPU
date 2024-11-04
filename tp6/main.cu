@@ -29,7 +29,20 @@ template<int T>
 __global__
 void scan_gpu1(int* x)
 {
-    // ...
+    __shared__ int buffers[2*N]; ⊲ two buffers (one after the other)
+2: i = threadIdx.x
+3: ... ⊲ load input in the first buffer
+4: __syncthreads(); ⊲ wait for every threads to load
+5: step = log2(N)
+6: for n = 0...step-1 do
+7: offset = ... ⊲ compute offset
+8: if offset <= i then
+9: ... ⊲ sum elements at indices i and i-offset
+10: else
+11: ... ⊲ copy element at index i
+12: __syncthreads(); ⊲ synchronize every thread of the bloc
+13: ... ⊲ swap the two buffers
+14: ...
 }
 
 } // namespace kernel
