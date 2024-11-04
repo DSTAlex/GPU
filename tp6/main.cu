@@ -155,6 +155,10 @@ int main()
         const std::vector<int> y_test = scan_gpu1<8>(x);
         if(y_test != y_sol) {
             std::cout << "failure" << std::endl;
+            std::cout << "  expected = [0,3,5,10,16,24,31,35]" << std::endl;
+            std::cout << "  get      = [";
+            for(int val : y_test) std::cout << val << ",";
+            std::cout << "]" << std::endl;
         } else {
             std::cout << "success" << std::endl;
         }
@@ -166,6 +170,10 @@ int main()
         const std::vector<int> y_test = scan_gpu1<16>(x);
         if(y_test != y_sol) {
             std::cout << "failure" << std::endl;
+            std::cout << "  expected = [0,16,31,35,49,59,60,73,85,87,98,107,114,122,127,130]" << std::endl;
+            std::cout << "  get      = [";
+            for(int val : y_test) std::cout << val << ",";
+            std::cout << "]" << std::endl;
         } else {
             std::cout << "success" << std::endl;
         }
