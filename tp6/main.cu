@@ -33,6 +33,10 @@ void scan_gpu1(int* x)
     int i = threadIdx.x;
 
     buffers[i] = x[i];
+    if (i != 0)
+    {
+        buffers[i] += x[i-1];
+    }
     __syncthreads();
 
 
