@@ -38,7 +38,7 @@ void scan_gpu1(int* x)
     int b1 = 0;
     int b2 = T;
 
-    for (int offset = 1; i < T; offset*=2)
+    for (int offset = 1; offset < T; offset*=2)
     {
         if (offset < i)
         {
