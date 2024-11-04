@@ -99,7 +99,7 @@ void scan_gpu2(int* x)
     int truc = 1;
     for (int offset = 2; offset < T; offset*=2)
     {
-        if ( offset == 2)
+        if ( true)
         {
             //x[i * offset + 1] += x[i * offset +1- offset/2];
             x[i * offset + 1] = offset * 10 + i;
