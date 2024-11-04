@@ -53,7 +53,13 @@ void scan_gpu1(int* x)
         buffers[i] = buffers[i+T];
         __syncthreads();
     }
-    x[i] = buffers[i];
+    if (i == 0)
+    {
+        x[0] = 0;
+    }
+    else {
+        x[i] = buffers[i-1];
+    }
 }
 } // namespace kernel
 
