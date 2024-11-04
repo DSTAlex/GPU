@@ -102,7 +102,7 @@ void scan_gpu2(int* x)
         if (i / truc == i or i/truc == truc)
             x[i * offset + 1] += x[i * offset +1- offset/2];
         else
-            break
+            break;
         truc += 2;
     }
 
