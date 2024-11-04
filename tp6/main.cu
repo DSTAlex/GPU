@@ -39,11 +39,11 @@ void scan_gpu1(int* x)
     }
     __syncthreads();
 
-    for (int offset = 1; offset < 0; offset*=2)
+    for (int offset = 1; offset < T; offset*=2)
     {
         if (offset < i)
         {
-            buffers[i + T] += buffers[i];
+            buffers[i + T] = buffers[i];
         }
         else
         {
@@ -51,6 +51,7 @@ void scan_gpu1(int* x)
         }
         __syncthreads();
         buffers[i] = buffers[i+T];
+        buffers[i+T] = 0;
         __syncthreads();
     }
     if (i == 0)
