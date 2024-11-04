@@ -48,10 +48,10 @@ std::vector<int> scan_gpu1(const std::vector<int>& x)
     CUDA_CHECK(cudaMemcpy(dx, x.data(), x.size()*sizeof(int), cudaMemcpyHostToDevice));
 
     // 3. launch CUDA kernel
-    scan_gpu1<<<1, T>>>(dx);
+    scan_gpu1<T><<<1, T>>>(dx);
 
     // 4. copy result from device to host
-    CUDA_CHECK(cudaMemcpy(res.data(), dx, x.size*sizeof(int), cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy(res.data(), dx, x.size()*sizeof(int), cudaMemcpyDeviceToHost));
 
     // 5. free device memory
     CUDA_CHECK(cudaFree(dx));
