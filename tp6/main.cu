@@ -107,7 +107,7 @@ void scan_gpu2(int* x)
         else
         {
             x[i * offset + 1] = 100;
-            break;
+            //break;
         }
         truc *= 2;
     }
