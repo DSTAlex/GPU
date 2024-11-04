@@ -54,7 +54,7 @@ void scan_gpu1(int* x)
         b1 = tmp;
     }
     x[i] = buffers[i + b1];
-
+}
 } // namespace kernel
 
 
