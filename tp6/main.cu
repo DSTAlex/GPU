@@ -119,7 +119,7 @@ std::vector<int> scan_gpu2(const std::vector<int>& x)
     CUDA_CHECK(cudaMemcpy(dx, x.data(), x.size()*sizeof(int), cudaMemcpyHostToDevice));
 
     // 3. launch CUDA kernel
-    kernel::scan_gpu1<T><<<1, T/2>>>(dx);
+    kernel::scan_gpu2<T><<<1, T/2>>>(dx);
 
     // 4. copy result from device to host
     CUDA_CHECK(cudaMemcpy(res.data(), dx, x.size()*sizeof(int), cudaMemcpyDeviceToHost));
