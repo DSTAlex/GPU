@@ -14,7 +14,7 @@ std::vector<int> scan_cpu(const std::vector<int>& x)
 {
     std::vector<int> res = std::vector<int>(x.size());
     res[0] = 0;
-    for (int i = 1; i < x.size()-1; i++)
+    for (int i = 1; i < x.size(); i++)
     {
         res[i] = res[i-1] + x[i-1];
     }
