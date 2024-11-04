@@ -98,10 +98,7 @@ void scan_gpu2(int* x)
 
     for (int boucle = T-1; boucle < T; boucle*=2)
     {
-        if (i > boucle)
-        {
-            x[i*2 + 1] += x[i*2];
-        }
+        x[i*2 + 1] += x[i*2];
     }
 
 }
