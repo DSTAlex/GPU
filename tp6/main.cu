@@ -96,9 +96,12 @@ void scan_gpu2(int* x)
 {
     int i = threadIdx.x;
 
-    for (int boucle = T-1; boucle < T; boucle*=2)
+    j = 0;
+    for (int boucle = T/2; boucle > 0; boucle/=2)
     {
-        x[i*2 + 1] += x[i*2];
+        if (i < boucle)
+            x[i*2 + 1 + j] += x[i*2+j];
+        j++;
     }
 
 }
