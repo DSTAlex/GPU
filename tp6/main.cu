@@ -101,7 +101,7 @@ void scan_gpu2(int* x)
     {
         if ( i % truc == 1 || offset == 2)
         {
-            print("%i, %i\n");
+            printf("%i, %i\n");
             x[i * offset + 1] += x[i * offset +1- offset/2];
         }
         else
