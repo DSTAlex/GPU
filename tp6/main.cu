@@ -96,7 +96,7 @@ void scan_gpu2(int* x)
 {
     int i = threadIdx.x;
 
-    j = 0;
+    int j = 0;
     for (int boucle = T/2; boucle > 0; boucle/=2)
     {
         if (i < boucle)
