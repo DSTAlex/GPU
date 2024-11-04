@@ -40,7 +40,7 @@ void scan_gpu1(int* x)
     __syncthreads();
 
 
-    for (int offset = 1; offset < T; offset*=2)
+    for (int offset = 1; offset < 2; offset*=2)
     {
         if (offset < i)
         {
