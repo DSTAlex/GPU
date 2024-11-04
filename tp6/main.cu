@@ -12,13 +12,14 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 // sequential exclusive scan on the CPU
 std::vector<int> scan_cpu(const std::vector<int>& x)
 {
-    std::vector<int> res = std::vector(x.size()) ;
+    std::vector<int> res = std::vector(x->size()) ;
     res[0] = 0;
-    for (int i = 1; i < x.size()-1; i++)
+    for (int i = 1; i < x->size()-1; i++)
     {
         res[i] = res[i-1] + x[i];
     }
     return res;
+    return {};
 }
 
 
