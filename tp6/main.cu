@@ -103,6 +103,17 @@ void scan_gpu2(int* x)
             x[i * offset + offset - 1] += x[i * offset + offset - 1 - offset/2];
         }
     }
+    x[T-1] = 0;
+
+    for (;offset >=2; offset/=2)
+    {
+        if (i * offset + offset - 1 < T)
+        {
+            int tmp = x[i * offset + offset - 1];
+            x[i * offset + offset - 1] = tmp + x[i * offset + offset - 1 - offset/2];
+            x[i * offset + offset - 1 - offset/2] = tmp;
+        }
+    }
 
 }
 
@@ -242,6 +253,10 @@ int main()
         const std::vector<int> y_test = scan_gpu2<16>(x);
         if(y_test != y_sol) {
             std::cout << "failure" << std::endl;
+            std::cout << "  expected = [0,16,31,35,49,59,60,73,85,87,98,107,114,122,127,130]" << std::endl;
+            std::cout << "  get      = [";
+            for(int val : y_test) std::cout << val << ",";
+            std::cout << "]" << std::endl;
         } else {
             std::cout << "success" << std::endl;
         }
