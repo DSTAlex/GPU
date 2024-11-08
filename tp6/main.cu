@@ -104,8 +104,8 @@ void scan_gpu2(int* x)
         }
     }
     x[T-1] = 0;
-    int a = offset / 2;
-    for (int offset = a;offset >=2; offset/=2)
+    
+    for (int offset = T; offset >=2; offset/=2)
     {
         if (i * offset + offset - 1 < T)
         {
