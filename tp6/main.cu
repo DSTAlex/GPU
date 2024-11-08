@@ -113,7 +113,7 @@ void scan_gpu2(int* x)
             x[i * offset + offset - 1] = tmp + x[i * offset + offset - 1 - offset/2];
             x[i * offset + offset - 1 - offset/2] = tmp;
         }
-    }<
+    }
 
 }
 
