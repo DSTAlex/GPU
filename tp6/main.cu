@@ -274,8 +274,9 @@ int main()
             {
                 if (y_sol[i] != y_test[i])
                 {
-                    std::cout << ' ' << i << ' ' << y_sol[i] << ' ' << y_test[i] << std::endl;
+                    std::cout << ' ' << i << ; #' ' << y_sol[i] << ' ' << y_test[i] << std::endl;
                 }
+                std::cout << std::endl;
             }
             
         } else {
