@@ -270,11 +270,11 @@ int main()
             std::cout << "failure" << std::endl;
 
             
-            for(int i = 0 ; i < 1024; i++) 
+            for(int i = 0 ; i < 10; i++) 
             {
                 if (y_sol[i] != y_test[i])
                 {
-                    std::cout << ' ' << i;
+                    std::cout << ' ' << i << ' ' << y_sol[i] << ' ' << y_test[i] << std::endl;
                 }
             }
             
