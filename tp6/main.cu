@@ -102,6 +102,7 @@ void scan_gpu2(int* x)
         {
             x[i * offset + offset - 1] += x[i * offset + offset - 1 - offset/2];
         }
+        __syncthreads();
     }
     if (i == 0)
         x[T-1] = 0;
@@ -115,6 +116,7 @@ void scan_gpu2(int* x)
             x[i * offset + offset - 1] = tmp + x[i * offset + offset - 1 - offset/2];
             x[i * offset + offset - 1 - offset/2] = tmp;
         }
+        __syncthreads();
     }
 
 }
