@@ -48,7 +48,7 @@ float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
 
         if (z_module > tau*tau)
         {
-            n_final = (float)n;
+            n_final = 0;//n_final = (float)n;
             break;
         }
 
@@ -78,7 +78,7 @@ void generate(int N, int M, int C, int pitch, float* img)
 
     float * pixel = get_ptr<float>(img, i, j, C, pitch);
     float val = compute_convergence(x,y);
-    *pixel=0.5;
+    *pixel=val;
 
 }
 
