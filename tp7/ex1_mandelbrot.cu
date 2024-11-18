@@ -126,7 +126,7 @@ int main()
     kernel::generate<<<block, thread>>>(N, M, C, pitch, d_img);
 
     // 4. copy result from device to host
-    CUDA_CHECK(cudaMemcpy2D(img, 0, d_img, M*sizeof(float), N, cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy2D(img, 0, d_img, pitch, M*sizeof(float), N, cudaMemcpyDeviceToHost));
 
     // 5. free device memory
     CUDA_CHECK(cudaFree(d_img));
