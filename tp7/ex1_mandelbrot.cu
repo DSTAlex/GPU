@@ -46,7 +46,7 @@ float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
     {
         z_module = reel * reel + imaginaire * imaginaire;
 
-        if (z_module > tau)
+        if (z_module > tau*tau)
         {
             n_final = (float)n;
             break;
@@ -116,7 +116,7 @@ int main()
 
     float* img = (float*)malloc(N*M*C*sizeof(float));
 
-    //test(N, M);
+    test(N, M);
 
     CUDA_CHECK(cudaMallocPitch(&d_img, &pitch, M * sizeof(float), N));
     //printf("%zu\n", pitch);
