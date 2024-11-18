@@ -17,7 +17,7 @@ std::vector<int> compute_hist_cpu(float* img, int size)
     std::vector<int> hist(H, 0);
 
     for (int i = 0; i < size; i++){
-        int place = int(img[i] * H)
+        int place = int(img[i] * H);
         hist[place]++;
     }
 
