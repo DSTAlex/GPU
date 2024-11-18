@@ -115,18 +115,18 @@ int main()
     constexpr int T = 32;
 
     float* img = (float*)malloc(N*M*C*sizeof(float));
-
+    print("%l\n", &img);
     //test(N, M);
 
     CUDA_CHECK(cudaMallocPitch(&d_img, &pitch, M * sizeof(float), N));
-    printf("%zu\n", pitch);
+    //printf("%zu\n", pitch);
     // 3. launch CUDA kernel
     dim3 thread = {T,T,1};
     dim3 block = {(unsigned int)((N + T - 1) / T), (unsigned int)((M + T - 1) / T),1};
     kernel::generate<<<block, thread>>>(N, M, C, pitch, d_img);
 
 
-    printf("%zu\n", pitch);
+    //printf("%zu\n", pitch);
     // 4. copy result from device to host
     CUDA_CHECK(cudaMemcpy2D(img, M*sizeof(float), d_img, pitch, M*sizeof(float), N, cudaMemcpyDeviceToHost));
 
