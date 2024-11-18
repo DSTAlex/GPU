@@ -32,13 +32,13 @@ void map_coordinates(int i, int j, int N, int M, float* x, float* y)
 __device__
 float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
 {
-    int reel = 0;
-    int imaginaire = 0;
-    int z_module = 0;
-    int tmp_reel = 0;
+    float reel = 0;
+    float imaginaire = 0;
+    float z_module = 0;
+    float tmp_reel = 0;
 
-    int reel_c = x;
-    int imaginaire_c = y;
+    float reel_c = x;
+    float imaginaire_c = y;
 
     float n_final = (float)n_max;
 
