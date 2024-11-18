@@ -115,7 +115,7 @@ int main()
     constexpr int T = 32;
 
     float* img = (float*)malloc(N*M*C*sizeof(float));
-    print("%l\n", &img);
+    printf("%l\n", &img);
     //test(N, M);
 
     CUDA_CHECK(cudaMallocPitch(&d_img, &pitch, M * sizeof(float), N));
