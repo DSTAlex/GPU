@@ -25,7 +25,7 @@ __device__ inline T* get_ptr(T *img, int i, int j, int C, size_t pitch)
 __host__ __device__
 void map_coordinates(int i, int j, int N, int M, float* x, float* y)
 {
-    *y = ((float)i / (float)N ) * 2 - 1 ;
+    *y = ((float)i / (float)N ) * 2 - 1;
     *x = ((float)j / (float)M ) * 3 - 2;
 }
 
@@ -90,7 +90,7 @@ void test(int N, int M){
     {
         printf("1 != %f || 1 != %f\n", x, y);
     }
-    map_coordinates(N/2, M/3, N, M, &x, &y);
+    map_coordinates(N/2, 2*M/3, N, M, &x, &y);
     if (x != 0 || y != 0)
     {
         printf("0 != %f || 0 != %f\n", x, y);
