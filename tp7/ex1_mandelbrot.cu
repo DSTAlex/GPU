@@ -54,8 +54,8 @@ float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
 
         // r+i ** = r+i * r+i = r(r+i) + i(r+i) = rr + ri + ir + ii = rr-ii + 2ri
         tmp_reel = reel;
-        reel = reel * reel - imaginaire * imaginaire;
-        imaginaire = 2 * tmp_reel * imaginaire;
+        reel = reel * reel - imaginaire * imaginaire + reel_c;
+        imaginaire = 2 * tmp_reel * imaginaire + imaginaire_c;
     }
 
     return n_final / (float)n_max;
@@ -81,7 +81,15 @@ void test(int N, int M){
     float x;
     float y;
     map_coordinates(0, 0, N, M, &x, &y);
-    printf("x: %f, y: %f", x, y);
+    if (x != -2 || y != -1)
+    {
+        printf("-2 != %f || -1 != %f\n", x, y)
+    }
+    map_coordinates(N, M, N, M, &x, &y);
+    if (x != 1 || y != 1)
+    {
+        printf("1 != %f || 1 != %f\n", x, y)
+    }
 }
 
 int main()
