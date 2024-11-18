@@ -119,7 +119,7 @@ int main()
     //test(N, M);
     float* dx;
 
-    CUDA_CHECK(cudaMalloc(dx, N*M*sizeof(float)));
+    CUDA_CHECK(cudaMalloc(&dx, N*M*sizeof(float)));
 
     // 3. launch CUDA kernel
     dim3 thread = {T,T,1};
