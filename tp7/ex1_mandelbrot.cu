@@ -40,13 +40,15 @@ float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
     int reel_c = x;
     int imaginaire_c = y;
 
+    float n_final = (float)n_max;
 
     for (int n = 0; n< n_max; n++)
     {
         z_module = reel * reel + imaginaire * imaginaire;
 
-        if (z > tau)
+        if (z_module > tau)
         {
+            n_final = (float)n;
             break;
         }
 
@@ -56,7 +58,7 @@ float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
         imaginaire = 2 * tmp_reel * imaginaire;
     }
 
-    return (float)n / (float)n_max;
+    return n / (float)n_max;
 }
 
 
