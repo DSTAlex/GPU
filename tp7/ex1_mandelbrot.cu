@@ -19,7 +19,7 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 template <typename T>
 __device__ inline T* get_ptr(T *img, int i, int j, int C, size_t pitch) 
 {
-    return img +  i * pitch + j * C;
+    return img +  i * pitch/sizeof(float) + j * C;
 }
 
 __host__ __device__
@@ -117,20 +117,19 @@ int main()
     float* img = (float*)malloc(N*M*C*sizeof(float));
 
     //test(N, M);
-    float* dx;
 
-    CUDA_CHECK(cudaMalloc(&dx, N*M*sizeof(float)));
+    CUDA_CHECK(cudaMallocPitch(&d_img, &pitch, M * sizeof(float), N));
 
     // 3. launch CUDA kernel
     dim3 thread = {T,T,1};
     dim3 block = {(unsigned int)((N + T - 1) / T), (unsigned int)((M + T - 1) / T),1};
-    kernel::generate<<<block, thread>>>(N, M, C, pitch, dx);
+    kernel::generate<<<block, thread>>>(N, M, C, pitch, d_img);
 
     // 4. copy result from device to host
-    CUDA_CHECK(cudaMemcpy(img, dx, N*M*sizeof(float), cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy2D(img, 0, d_img, M*sizeof(float), N, cudaMemcpyDeviceToHost));
 
     // 5. free device memory
-    CUDA_CHECK(cudaFree(dx));
+    CUDA_CHECK(cudaFree(d_img));
 
     image::save("fractal.jpg", M, N, C, img);
     std::cout << "Image saved to fractal.jpg" << std::endl;
