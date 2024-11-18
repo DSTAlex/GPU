@@ -71,6 +71,14 @@ void generate(int N, int M, int C, int pitch, float* img)
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     int j = blockDim.y * blockIdx.y + threadIdx.y;
 
+    if (i >= N || j >= M)
+        return;
+    int x, y;
+    map_coordinates(i, j, N, M, &x, &y);
+
+    float * pixel = get_ptr<float>(img, i, j, C, pitch);
+    float val = compute_convergence(x,y);
+    *pixel=val;
 
 }
 
@@ -109,9 +117,24 @@ int main()
     float* img = (float*)malloc(N*M*C*sizeof(float));
 
     test(N, M);
+    float* dx;
 
-    //image::save("fractal.jpg", M, N, C, img);
-    //std::cout << "Image saved to fractal.jpg" << std::endl;
+    CUDA_CHECK(cudaMalloc(dx, N*M*sizeof(float)));
+
+    // 2. copy from host to device
+    CUDA_CHECK(cudaMemcpy(dx, img, N*M*sizeof(float), cudaMemcpyHostToDevice));
+
+    // 3. launch CUDA kernel
+    kernel::generate(N, M, C, pitch, img);
+
+    // 4. copy result from device to host
+    CUDA_CHECK(cudaMemcpy(img, dx, N*M*sizeof(float), cudaMemcpyDeviceToHost));
+
+    // 5. free device memory
+    CUDA_CHECK(cudaFree(dx));
+
+    image::save("fractal.jpg", M, N, C, img);
+    std::cout << "Image saved to fractal.jpg" << std::endl;
 
     free(img);
 
