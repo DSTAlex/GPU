@@ -121,11 +121,10 @@ int main()
 
     CUDA_CHECK(cudaMalloc(dx, N*M*sizeof(float)));
 
-    // 2. copy from host to device
-    CUDA_CHECK(cudaMemcpy(dx, img, N*M*sizeof(float), cudaMemcpyHostToDevice));
-
     // 3. launch CUDA kernel
-    kernel::generate(N, M, C, pitch, img);
+    dim3 thread = {T,T,1};
+    dim3 block = {(unsigned int)((N + T - 1) / T), (unsigned int)((M + T - 1) / T),1};
+    kernel::generate<<<block, thread>>>(N, M, C, pitch, dx);
 
     // 4. copy result from device to host
     CUDA_CHECK(cudaMemcpy(img, dx, N*M*sizeof(float), cudaMemcpyDeviceToHost));
