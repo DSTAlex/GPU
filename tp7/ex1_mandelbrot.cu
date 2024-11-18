@@ -119,6 +119,7 @@ int main()
     //test(N, M);
 
     CUDA_CHECK(cudaMallocPitch(&d_img, &pitch, M * sizeof(float), N));
+    print("pitch %i\n", pitch);
 
     // 3. launch CUDA kernel
     dim3 thread = {T,T,1};
