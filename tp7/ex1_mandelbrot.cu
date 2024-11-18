@@ -116,7 +116,7 @@ int main()
 
     float* img = (float*)malloc(N*M*C*sizeof(float));
 
-    test(N, M);
+    //test(N, M);
     float* dx;
 
     CUDA_CHECK(cudaMalloc(dx, N*M*sizeof(float)));
