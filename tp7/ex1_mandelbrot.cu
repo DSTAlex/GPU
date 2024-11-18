@@ -78,10 +78,10 @@ void generate(int N, int M, int C, int pitch, float* img)
 
 
 void test(int N, int M){
-    float *x;
-    float *y;
-    map_coordinates(0, 0, N, M, x, y);
-    printf("x: %f, y: %f", *x, *y);
+    float x;
+    float y;
+    map_coordinates(0, 0, N, M, &x, &y);
+    printf("x: %f, y: %f", x, y);
 }
 
 int main()
