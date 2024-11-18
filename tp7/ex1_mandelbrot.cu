@@ -19,7 +19,7 @@ inline void cuda_check(cudaError_t code, const char *file, int line) {
 template <typename T>
 __device__ inline T* get_ptr(T *img, int i, int j, int C, size_t pitch) 
 {
-    return (T*)((char*)img +  i * pitch + j * C);
+    return (T*)((char*)img +  i * pitch) + j * C;
 }
 
 __host__ __device__
@@ -76,9 +76,9 @@ void generate(int N, int M, int C, int pitch, float* img)
     float x, y;
     map_coordinates(i, j, N, M, &x, &y);
 
-    //float * pixel = get_ptr<float>(img, i, j, C, pitch);
+    float * pixel = get_ptr<float>(img, i, j, C, pitch);
     float val = compute_convergence(x,y);
-    //*pixel=(int)(val*255);
+    *pixel=(int)(val*255);
 
 }
 
