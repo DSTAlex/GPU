@@ -90,6 +90,11 @@ void test(int N, int M){
     {
         printf("1 != %f || 1 != %f\n", x, y);
     }
+    map_coordinates(N/2, M/3, N, M, &x, &y);
+    if (x != 0 || y != 0)
+    {
+        printf("0 != %f || 0 != %f\n", x, y);
+    }
 }
 
 int main()
