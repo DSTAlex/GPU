@@ -48,7 +48,7 @@ float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
 
         if (z_module > tau*tau)
         {
-            n_final = 0;//n_final = (float)n;
+            n_final = (float)n;
             break;
         }
 
