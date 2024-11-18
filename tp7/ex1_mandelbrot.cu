@@ -58,7 +58,7 @@ float compute_convergence(float x, float y, int n_max=100, float tau=10.0)
         imaginaire = 2 * tmp_reel * imaginaire;
     }
 
-    return n / (float)n_max;
+    return n_final / (float)n_max;
 }
 
 
@@ -77,6 +77,12 @@ void generate(int N, int M, int C, int pitch, float* img)
 } // namespace kernel
 
 
+void test(int N, int M){
+    float *x;
+    float *y;
+    map_coordinates(0, 0, N, M, x, y);
+    printf("x: %f, y: %f", *x, *y);
+}
 
 int main()
 {
@@ -100,9 +106,3 @@ int main()
 }
 
 
-void test(int N, int M){
-    int *x;
-    int *y;
-    map_coordinates(0, 0, N, M, x, y);
-    printf("x: %f, y: %f", *x, *y);
-}
