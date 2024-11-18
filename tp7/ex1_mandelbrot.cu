@@ -83,12 +83,12 @@ void test(int N, int M){
     map_coordinates(0, 0, N, M, &x, &y);
     if (x != -2 || y != -1)
     {
-        printf("-2 != %f || -1 != %f\n", x, y)
+        printf("-2 != %f || -1 != %f\n", x, y);
     }
     map_coordinates(N, M, N, M, &x, &y);
     if (x != 1 || y != 1)
     {
-        printf("1 != %f || 1 != %f\n", x, y)
+        printf("1 != %f || 1 != %f\n", x, y);
     }
 }
 
