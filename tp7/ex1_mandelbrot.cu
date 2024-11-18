@@ -124,7 +124,7 @@ int main()
 
     // 3. launch CUDA kernel
     dim3 thread = {T,T,1};
-    dim3 block = {(unsigned int)((M + T - 1) / T), (unsigned int)((N + T - 1) / T),1};
+    dim3 block = {(unsigned int)((N + T - 1) / T), (unsigned int)((M + T - 1) / T),1};
     kernel::generate<<<block, thread>>>(N, M, C, pitch, d_img);
 
 
