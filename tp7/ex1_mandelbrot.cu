@@ -76,9 +76,9 @@ void generate(int N, int M, int C, int pitch, float* img)
     float x, y;
     map_coordinates(i, j, N, M, &x, &y);
 
-    float * pixel;// = get_ptr<float>(img, i, j, C, pitch);
+    //float * pixel = get_ptr<float>(img, i, j, C, pitch);
     float val = compute_convergence(x,y);
-    *pixel=(int)(val*255);
+    //*pixel=(int)(val*255);
 
 }
 
