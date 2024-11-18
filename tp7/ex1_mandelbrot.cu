@@ -120,6 +120,8 @@ int main()
 
     CUDA_CHECK(cudaMallocPitch(&d_img, &pitch, M * sizeof(float), N));
     //printf("%zu\n", pitch);
+    printf("%p\n",d_img);
+
     // 3. launch CUDA kernel
     dim3 thread = {T,T,1};
     dim3 block = {(unsigned int)((M + T - 1) / T), (unsigned int)((N + T - 1) / T),1};
@@ -127,6 +129,9 @@ int main()
 
 
     //printf("%zu\n", pitch);
+
+    printf("%p\n",d_img);
+    
     // 4. copy result from device to host
     CUDA_CHECK(cudaMemcpy2D(img, M*sizeof(float), d_img, pitch, M*sizeof(float), N, cudaMemcpyDeviceToHost));
 
