@@ -73,7 +73,7 @@ void generate(int N, int M, int C, int pitch, float* img)
 
     if (i >= N || j >= M)
         return;
-    int x, y;
+    float x, y;
     map_coordinates(i, j, N, M, &x, &y);
 
     float * pixel = get_ptr<float>(img, i, j, C, pitch);
