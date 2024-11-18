@@ -58,7 +58,7 @@ int main()
 
     const std::vector<int> hist_cpu  = compute_hist_cpu (img, size);
     const std::vector<int> hist_gpu1 = compute_hist_gpu1(img, size);
-    const std::vector<int> hist_gpu2 = compute_hist_gpu2(img, size);
+    //const std::vector<int> hist_gpu2 = compute_hist_gpu2(img, size);
 
     std::cout << "Test" << std::endl;
     {
