@@ -78,7 +78,7 @@ void generate(int N, int M, int C, int pitch, float* img)
 
     float * pixel = get_ptr<float>(img, i, j, C, pitch);
     float val = compute_convergence(x,y);
-    *pixel=val;
+    *pixel=0.5;
 
 }
 
