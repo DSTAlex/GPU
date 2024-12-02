@@ -50,7 +50,7 @@ __global__ void reduce2(const int *x, int *y, int N)
     int val = 0;
     if (threadIdx.x < 32)
     {
-        //val = buffer[threadIdx.x];   
+        val = buffer[threadIdx.x];   
     }
     
     __syncthreads();
