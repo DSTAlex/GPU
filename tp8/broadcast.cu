@@ -9,7 +9,7 @@ __global__ void broadcast1(int* x, int N)
         return;
     int y = x[i];
     y = __shfl_sync(0xFFFFFFFF, y, 0, N);
-    x[i] = y
+    x[i] = y;
 }
 
 __global__ void broadcast2(int* x, int N)
