@@ -51,9 +51,10 @@ __global__ void reduce2(const int *x, int *y, int N)
     {
         int val = warp_reduce(v);
 
-    }
     if ( i == 0)
         y[blockIdx.x] = val;
+
+    }
 }
 
 } // namespace kernel
