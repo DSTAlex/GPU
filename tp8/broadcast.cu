@@ -8,7 +8,7 @@ __global__ void broadcast1(int* x, int N)
     if (i>N)
         return;
     int y = x[i];
-    y = __shfl_sync(mask=0xFFFFFFFF, y, srcLane=0, width=N);
+    y = __shfl_sync(0xFFFFFFFF, y, 0, N);
     x[i] = y
 }
 
