@@ -49,14 +49,12 @@ __global__ void reduce2(const int *x, int *y, int N)
 
     if (i % 32 == 0)
     {
-        int val = warp_reduce(v);
-
-        __syncthreads();
-        
-        if ( i == 0)
-            y[blockIdx.x] = val;
-
+        int val = warp_reduce(v);   
     }
+    else
+        int val = warp_reduce(0);
+    if ( i == 0)
+        y[blockIdx.x] = val;
 }
 
 } // namespace kernel
