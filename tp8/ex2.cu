@@ -19,7 +19,7 @@ int main()
     
     int* dx = nullptr;
     CUDA_CHECK( cudaMalloc(&dx, N*sizeof(int)) );
-    CUDA_CHECK( cudaMemcpy(dy, x.data(), N*sizeof(int), cudaMemcpyHostToDevice) );
+    CUDA_CHECK( cudaMemcpy(dx, x.data(), N*sizeof(int), cudaMemcpyHostToDevice) );
 
     std::cout << "Test reduce1 " << std::endl;
     {
