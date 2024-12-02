@@ -4,7 +4,7 @@
 __device__ int warp_reduce(int sum) 
 {
     int y = sum;
-    for (int k = 32; k >= 1; k/=2){
+    for (int k = 32; k > 1; k/=2){
         y += __shfl_down_sync(0xFFFFFFFF, y, k/2, 32);
         __syncthreads();
     }
@@ -23,7 +23,7 @@ __global__ void reduce1(const int *x, int *y, int N)
     int v = warp_reduce(x[i]); 
 
     if (i % 32 == 0)
-        y[i /32] = v;
+        y[i / 32] = v;
 }
 
 __global__ void reduce2(const int *x, int *y, int N) 
