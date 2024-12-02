@@ -35,23 +35,23 @@ __global__ void reduce2(const int *x, int *y, int N)
     int v = warp_reduce(x[i]); 
 
 
-    // __shared__ int buffer[4];
-    // if (threadIdx.x == 0)
-    // {
-    //     for (int j = 0; j < 4; j++)
-    //         buffer[j] = 0;
-    // }
-    // __syncthreads();
+    __shared__ int buffer[32];
+    if (threadIdx.x == 0)
+    {
+        for (int j = 0; j < 32; j++)
+            buffer[j] = 0;
+    }
+    __syncthreads();
     
-    // if (i % 32 == 0)
-    //     buffer[i / 32] = v;
+    if (i % 32 == 0)
+        buffer[i / 32] = v;
     __syncthreads();
 
     int val = 0;
-    // if (i % 32 == 0)
-    // {
-    //     val = warp_reduce(v);   
-    // }
+    if (i < 32)
+    {
+        val = warp_reduce(buffer[i]);   
+    }
     // else
     //     val = warp_reduce(0);
     
