@@ -18,7 +18,8 @@ std::vector<int> compute_hist_cpu(float* img, int size)
 
     for (int i = 0; i < size; i++){
         int place = int(img[i] * H);
-        hist[place]++;
+        if (img[i] != 1)
+            hist[place]++;
     }
 
     return hist;
@@ -29,12 +30,20 @@ namespace kernel {
 __global__
 void compute_hist1(float* d_img, int size, int* d_hist)
 {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    float value = d_img[i];
+    int place = int(valeu * H);
+    atomicAdd(d_hist + place + blockDim.x * T, 1);
 
 }
 
 __global__
 void merge_hist(int* d_hist, int B)
 {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    for (int k = 1; k < B; k++){
+        d_hist[i] += d_hist[i + k * H]
+    }
 
 }
 
@@ -43,6 +52,25 @@ void merge_hist(int* d_hist, int B)
 std::vector<int> compute_hist_gpu1(float* img, int size)
 {
     std::vector<int> h_hist(H);
+
+    float* d_img;
+    int * d_hist;
+    int B = (size + T -1) / T;
+
+    CUDA_CHECK(cudaMalloc(&d_img, size*sizeof(float)));
+    CUDA_CHECK(cudaMalloc(&d_hist, B*sizeof(int)));
+
+    CUDA_CHECK(cudaMemcpy(d_img, img, size*sizeof(float), cudaMemcpyHostToDevice));
+
+
+    kernel::compute_hist1<<<B, T>>>(d_img, size, d_hist);
+    cudaDeviceSynchronize();
+    kernel::merge_hist<<<1, H>>>(d_hist, B);
+
+    CUDA_CHECK(cudaMemcpy(h_hist.data(), d_hist, H*sizeof(int), cudaMemcpyDeviceToHost));
+
+    CUDA_CHECK(cudaFree(d_hist));
+    CUDA_CHECK(cudaFree(d_img));
 
     return h_hist;
 }

@@ -22,7 +22,10 @@ then
     rm exo
 elif [ "$1" = "-b" ]
 then
+    echo -e "kinit\naklog\nnix develop git+https://gitlab.cri.epita.fr/ing/majeures/gpgpu-shell\n"
     ssh -X -l alexandre.di-santo -p 2200$2 gpgpu.image.lrde.iaas.epita.fr
+    #ssh -X -p 2200$2 gpgpu.image.lrde.iaas.epita.fr aklog
+   
 fi
 
 
