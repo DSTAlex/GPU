@@ -48,10 +48,10 @@ __global__ void reduce2(const int *x, int *y, int N)
     __syncthreads();
 
     int val = 0;
-    // if (i < 32)
-    // {
-    //     val = warp_reduce(buffer[i]);   
-    // }
+    if (threadIdx.x < 32)
+    {
+        val = warp_reduce(buffer[threadIdx.x]);   
+    }
     
     __syncthreads();
     if ( i == 0)
