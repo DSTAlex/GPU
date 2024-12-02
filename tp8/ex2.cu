@@ -56,7 +56,19 @@ int main()
     {
         int sum = 0;
 
-        // ...
+        std::vector<int> y(B);
+
+        int* dy = nullptr;
+        CUDA_CHECK( cudaMalloc(&dy, B*sizeof(int)) );
+
+        kernel::reduce2<<<B, T>>>(dx, dy, N);
+
+        CUDA_CHECK( cudaMemcpy(y.data(), dy, B*sizeof(int), cudaMemcpyDeviceToHost) );
+        CUDA_CHECK( cudaFree(dy) );
+        
+        for ( int v : y){
+            sum += v;
+        }
 
         if(sum != sum_true)
         {
@@ -70,6 +82,5 @@ int main()
         }
     }
 
-    CUDA_CHECK( cudaMemcpy(x.data(), dx, N*sizeof(int), cudaMemcpyDeviceToHost) );
     CUDA_CHECK( cudaFree(dx) );
 }
