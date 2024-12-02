@@ -5,7 +5,7 @@ __device__ int warp_reduce(int sum)
 {
     int y = sum;
     for (int k = 32; k >= 1; k/=2){
-        int y += __shfl_down_sync(0xFFFFFFFF, y, k/2, 32);
+        y += __shfl_down_sync(0xFFFFFFFF, y, k/2, 32);
         __syncthreads();
     }
     return y;
