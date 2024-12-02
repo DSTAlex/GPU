@@ -28,7 +28,32 @@ __global__ void reduce1(const int *x, int *y, int N)
 
 __global__ void reduce2(const int *x, int *y, int N) 
 {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i > N)
+        return;
+    
+    int v = warp_reduce(x[i]); 
 
+
+    // __shared__ int buffer[4];
+    // if (threadIdx.x == 0)
+    // {
+    //     for (int j = 0; j < 4; j++)
+    //         buffer[j] = 0;
+    // }
+    // __syncthreads();
+    
+    // if (i % 32 == 0)
+    //     buffer[i / 32] = v;
+    __syncthreads();
+
+    if (i % 32 == 0)
+    {
+        int val = warp_reduce(v);
+
+    }
+    if ( i == 0)
+        y[blockIdx.x] = val;
 }
 
 } // namespace kernel
