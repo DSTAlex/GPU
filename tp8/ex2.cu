@@ -33,6 +33,7 @@ int main()
         kernel::reduce1<<<B, T>>>(dx, dy, N);
 
         CUDA_CHECK( cudaMemcpy(y.data(), dy, W*B*sizeof(int), cudaMemcpyDeviceToHost) );
+        CUDA_CHECK( cudaFree(dy) );
         
         for ( int v : y){
             sum += v;
