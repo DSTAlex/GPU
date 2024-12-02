@@ -54,7 +54,7 @@ __global__ void reduce2(const int *x, int *y, int N)
     }
     
     __syncthreads();
-    if ( i == 0)
+    if (threadIdx.x == 0)
         y[blockIdx.x] = val;
 }
 
