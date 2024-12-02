@@ -22,7 +22,7 @@ __global__ void reduce1(const int *x, int *y, int N)
     
     int v = warp_reduce(x[i]); 
 
-    if (i == 0)
+    if (i == 1)
         *y = v;
 }
 
