@@ -17,13 +17,13 @@ namespace kernel {
 __global__ void reduce1(const int *x, int *y, int N) 
 {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
-    if (i>N)
+    if (i > N)
         return;
     
     int v = warp_reduce(x[i]); 
 
-    if (i == 1)
-        *y = 1;
+    if (i % 32 == 0)
+        y[i /32] = v;
 }
 
 __global__ void reduce2(const int *x, int *y, int N) 
