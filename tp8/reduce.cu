@@ -43,8 +43,8 @@ __global__ void reduce2(const int *x, int *y, int N)
     }
     __syncthreads();
     
-    if (i % 32 == 0)
-        buffer[i / 32] = v;
+    if (threadIdx.x % 32 == 0)
+        buffer[threadIdx.x / 32] = v;
     __syncthreads();
 
     int val = 0;
