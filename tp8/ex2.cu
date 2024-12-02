@@ -34,7 +34,7 @@ int main()
 
         CUDA_CHECK( cudaMemcpy(y.data(), dy, W*B*sizeof(int), cudaMemcpyDeviceToHost) );
         
-        for ( v : y){
+        for ( int v : y){
             sum += v;
         }
 
