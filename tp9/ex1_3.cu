@@ -32,7 +32,10 @@ int main(int argc, char const *argv[])
     std::cout << "T = " << T << std::endl;
     std::cout << "B = " << B << std::endl;
 
-    cudaStream_t s1, s2, s3, s4;
+    cudaStream_t s1;
+    cudaStream_t s2;
+    cudaStream_t s3;
+    cudaStream_t s4;
 
     CUDA_CHECK (cudaError_t cudaStreamCreate(&s1));
     CUDA_CHECK (cudaError_t cudaStreamCreate(&s2));
