@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
     CUDA_CHECK( cudaEventCreate(&start));
     CUDA_CHECK( cudaEventCreate(&stop));
 
-    //cudaEventRecord(*start, 0);
+    cudaEventRecord(start, 0);
 
     int* x = nullptr;
     CUDA_CHECK( cudaMallocHost(&x, N*sizeof(int)) );
@@ -55,12 +55,12 @@ int main(int argc, char const *argv[])
     CUDA_CHECK( cudaMemcpy(x, dx, N*sizeof(int), cudaMemcpyDeviceToHost) );
 
 
-    //cudaEventRecord(*stop, 0);
+    cudaEventRecord(stop, 0);
 
-    //cudaEventSynchronize(*stop);
+    cudaEventSynchronize(stop);
 
     float* ms;
-    //cudaEventElapsedTime(ms, *start, *stop);
+    cudaEventElapsedTime(ms, *start, *stop);
 
     printf("duree: %f ms\n", ms);
 
