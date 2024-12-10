@@ -62,8 +62,17 @@ int main(int argc, char const *argv[])
     int* dy = nullptr;
     int* dz = nullptr;
 
+
+    cudaStream_t s1, s2, s3, s4;
+
+    CUDA_CHECK ( cudaStreamCreate(&s1) );
+    CUDA_CHECK ( cudaStreamCreate(&s2) );
+    CUDA_CHECK ( cudaStreamCreate(&s3) );
+    CUDA_CHECK ( cudaStreamCreate(&s4) );
+
+
     float time;
-    cudaEvent_t start, stop;
+    cudaEvent_t start, stop, e1, e2;
     CUDA_CHECK( cudaEventCreate(&start) );
     CUDA_CHECK( cudaEventCreate(&stop) );
     CUDA_CHECK( cudaEventRecord(start, 0) );
@@ -72,22 +81,36 @@ int main(int argc, char const *argv[])
     CUDA_CHECK( cudaMalloc(&dy, N*sizeof(int)) );
     CUDA_CHECK( cudaMalloc(&dz, N*sizeof(int)) );
     
-    CUDA_CHECK( cudaMemcpy(dx, x, N*sizeof(int), cudaMemcpyHostToDevice) );
-    CUDA_CHECK( cudaMemcpy(dy, y, N*sizeof(int), cudaMemcpyHostToDevice) );
+    CUDA_CHECK( cudaMemcpyAsync(dx, x, N*sizeof(int), cudaMemcpyHostToDevice, s1) );
+    CUDA_CHECK( cudaMemcpyAsync(dy, y, N*sizeof(int), cudaMemcpyHostToDevice, s2) );
 
-    kernel1<<<B,T>>>(dx,N);
+    kernel1<<<B,T, 0, s1>>>(dx,N);
+    CUDA_CHECK( cudaEventRecord(e1, 0) );
     CUDA_CHECK( cudaGetLastError() );
 
-    kernel2<<<B,T>>>(dy,N);
+    kernel2<<<B,T, 0, s2>>>(dy,N);
+    CUDA_CHECK( cudaEventRecord(e2, 0) );
     CUDA_CHECK( cudaGetLastError() );
 
-    kernel3<<<B,T>>>(dx,dy,dz,N);
+    CUDA_CHECK( cudaStreamWaitEvent(s3, e1));
+    CUDA_CHECK( cudaStreamWaitEvent(s3, e2));
+    CUDA_CHECK( cudaStreamWaitEvent(s4, e1));
+    CUDA_CHECK( cudaStreamWaitEvent(s4, e2));
+
+    kernel3<<<B,T 0 , s3>>>(dx,dy,dz,N/2);
     CUDA_CHECK( cudaGetLastError() );
 
-    kernel4<<<B,T>>>(dz,N);
+    kernel3<<<B,T 0 , s4>>>(dx + N/2, dy + N/2, dz + N/2,N/2);
     CUDA_CHECK( cudaGetLastError() );
 
-    CUDA_CHECK( cudaMemcpy(z, dz, N*sizeof(int), cudaMemcpyDeviceToHost) );
+    kernel4<<<B,T, 0, s4>>>(dz,N/2);
+    CUDA_CHECK( cudaGetLastError() );
+
+    kernel4<<<B,T, 0, s4>>>(dz + N/2,N/2);
+    CUDA_CHECK( cudaGetLastError() );
+
+    CUDA_CHECK( cudaMemcpyAsync(z, dz, N*sizeof(int)/2, cudaMemcpyDeviceToHost, s3) );
+    CUDA_CHECK( cudaMemcpyAsync(z + N/2, dz+ N/2, N*sizeof(int)/2, cudaMemcpyDeviceToHost, s4) );
 
     for(int i = 0; i < N; ++i)
     {
