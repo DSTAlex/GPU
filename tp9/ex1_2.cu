@@ -35,8 +35,8 @@ int main(int argc, char const *argv[])
     cudaEvent_t* start;
     cudaEvent_t* stop;
 
-    //cudaEventCreate(start);
-    //cudaEventCreate(stop);
+    cudaEventCreate(start);
+    cudaEventCreate(stop);
 
     //cudaEventRecord(*start, 0);
 
@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
     float* ms;
     //cudaEventElapsedTime(ms, *start, *stop);
 
-    printf("duree: %f ms", ms);
+    printf("duree: %f ms\n", ms);
 
     return 0;
 }
