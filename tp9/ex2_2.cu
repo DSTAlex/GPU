@@ -85,11 +85,11 @@ int main(int argc, char const *argv[])
     CUDA_CHECK( cudaMemcpyAsync(dy, y, N*sizeof(int), cudaMemcpyHostToDevice, s2) );
 
     kernel1<<<B,T, 0, s1>>>(dx,N);
-    CUDA_CHECK( cudaEventRecord(e1, 0) );
+    CUDA_CHECK( cudaEventRecord(e1, s1) );
     CUDA_CHECK( cudaGetLastError() );
 
     kernel2<<<B,T, 0, s2>>>(dy,N);
-    CUDA_CHECK( cudaEventRecord(e2, 0) );
+    CUDA_CHECK( cudaEventRecord(e2, s2) );
     CUDA_CHECK( cudaGetLastError() );
 
     CUDA_CHECK( cudaStreamWaitEvent(s3, e1));
