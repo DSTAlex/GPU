@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
     float ms;
     cudaEventElapsedTime(&ms, start, stop);
 
-    printf("duree: %f ms\n", ms);
+    printf("temps d'execution: %f ms\n", ms);
 
     return 0;
 }
