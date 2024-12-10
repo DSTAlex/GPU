@@ -37,10 +37,10 @@ int main(int argc, char const *argv[])
     cudaStream_t s3;
     cudaStream_t s4;
 
-    CUDA_CHECK (cudaError_t cudaStreamCreate(&s1));
-    CUDA_CHECK (cudaError_t cudaStreamCreate(&s2));
-    CUDA_CHECK (cudaError_t cudaStreamCreate(&s3));
-    CUDA_CHECK (cudaError_t cudaStreamCreate(&s4));
+    CUDA_CHECK ( cudaStreamCreate(&s1) );
+    CUDA_CHECK ( cudaStreamCreate(&s2) );
+    CUDA_CHECK ( cudaStreamCreate(&s3) );
+    CUDA_CHECK ( cudaStreamCreate(&s4) );
 
     cudaEvent_t start;
     cudaEvent_t stop;
