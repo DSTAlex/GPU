@@ -35,8 +35,8 @@ int main(int argc, char const *argv[])
     cudaEvent_t* start;
     cudaEvent_t* stop;
 
-    cudaEventCreate(start);
-    cudaEventCreate(stop);
+    CUDA_CHECK( cudaEventCreate(start));
+    CUDA_CHECK( cudaEventCreate(stop));
 
     //cudaEventRecord(*start, 0);
 
