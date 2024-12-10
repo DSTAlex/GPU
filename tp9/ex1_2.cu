@@ -60,7 +60,7 @@ int main(int argc, char const *argv[])
     cudaEventSynchronize(stop);
 
     float* ms;
-    cudaEventElapsedTime(ms, *start, *stop);
+    cudaEventElapsedTime(ms, start, stop);
 
     printf("duree: %f ms\n", ms);
 
