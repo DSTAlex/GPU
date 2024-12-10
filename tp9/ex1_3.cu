@@ -13,7 +13,7 @@ __global__
 void compute(int* x, int N, int iter=100)
 {
     const int i = blockDim.x * blockIdx.x + threadIdx.x;
-    if(i < N / 4) {
+    if(i < N) {
         for(int n = 0; n < iter; ++n)
             x[i] += int(powf(-1,n));
     }
@@ -65,7 +65,7 @@ int main(int argc, char const *argv[])
     kernel::compute<<<(N/4 + T - 1),T, 0, s1>>>(dx,N/4);
     kernel::compute<<<(N/4 + T - 1),T, 0, s2>>>(dx + (N/4),N/4);
     kernel::compute<<<(N/4 + T - 1),T, 0, s3>>>(dx + 2*(N/4),N/4);
-    kernel::compute<<<(N/4 + T - 1),T, 0, s4>>>(dx + 3*(N/4),N/4);
+    //kernel::compute<<<(N/4 + T - 1),T, 0, s4>>>(dx + 3*(N/4),N/4);
     CUDA_CHECK( cudaGetLastError() );
 
     //CUDA_CHECK( cudaMemcpy(x, dx, N*sizeof(int), cudaMemcpyDeviceToHost) );
@@ -74,6 +74,10 @@ int main(int argc, char const *argv[])
     CUDA_CHECK ( cudaMemcpyAsync(x + (N/4), dx + (N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s2) );
     CUDA_CHECK ( cudaMemcpyAsync(x + 2*(N/4), dx + 2*(N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s3) );
     CUDA_CHECK ( cudaMemcpyAsync(x + 3*(N/4), dx + 3*(N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s4) );
+
+    cudaEventRecord(stop, 0);
+
+    cudaEventSynchronize(stop);
 
     CUDA_CHECK ( cudaStreamSynchronize(s1) );
     CUDA_CHECK ( cudaStreamSynchronize(s2) );
@@ -84,10 +88,6 @@ int main(int argc, char const *argv[])
     CUDA_CHECK (  cudaStreamDestroy(s2));
     CUDA_CHECK (  cudaStreamDestroy(s3));
     CUDA_CHECK (  cudaStreamDestroy(s4));
-
-    cudaEventRecord(stop, 0);
-
-    cudaEventSynchronize(stop);
 
     float ms;
     cudaEventElapsedTime(&ms, start, stop);
