@@ -39,7 +39,6 @@ int main(int argc, char const *argv[])
     CUDA_CHECK( cudaEventCreate(&stop));
 
     cudaEventRecord(start, 0);
-    cudaEventSynchronize(start);
 
     int* x = nullptr;
     CUDA_CHECK( cudaMallocHost(&x, N*sizeof(int)) );
@@ -60,8 +59,8 @@ int main(int argc, char const *argv[])
 
     cudaEventSynchronize(stop);
 
-    float* ms;
-    cudaEventElapsedTime(ms, start, stop);
+    float ms;
+    cudaEventElapsedTime(&ms, start, stop);
 
     printf("duree: %f ms\n", ms);
 
