@@ -75,6 +75,8 @@ int main(int argc, char const *argv[])
     cudaEvent_t start, stop, e1, e2;
     CUDA_CHECK( cudaEventCreate(&start) );
     CUDA_CHECK( cudaEventCreate(&stop) );
+    CUDA_CHECK( cudaEventCreate(&e1) );
+    CUDA_CHECK( cudaEventCreate(&e2) );
     CUDA_CHECK( cudaEventRecord(start, 0) );
 
     CUDA_CHECK( cudaMalloc(&dx, N*sizeof(int)) );
