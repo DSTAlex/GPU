@@ -32,11 +32,11 @@ int main(int argc, char const *argv[])
     std::cout << "T = " << T << std::endl;
     std::cout << "B = " << B << std::endl;
 
-    cudaEvent_t* start;
-    cudaEvent_t* stop;
+    cudaEvent_t start;
+    cudaEvent_t stop;
 
-    CUDA_CHECK( cudaEventCreate(start));
-    CUDA_CHECK( cudaEventCreate(stop));
+    CUDA_CHECK( cudaEventCreate(&start));
+    CUDA_CHECK( cudaEventCreate(&stop));
 
     //cudaEventRecord(*start, 0);
 
