@@ -75,10 +75,6 @@ int main(int argc, char const *argv[])
     CUDA_CHECK ( cudaMemcpyAsync(x + 2*(N/4), dx + 2*(N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s3) );
     CUDA_CHECK ( cudaMemcpyAsync(x + 3*(N/4), dx + 3*(N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s4) );
 
-    cudaEventRecord(stop, 0);
-
-    cudaEventSynchronize(stop);
-
     CUDA_CHECK ( cudaStreamSynchronize(s1) );
     CUDA_CHECK ( cudaStreamSynchronize(s2) );
     CUDA_CHECK ( cudaStreamSynchronize(s3) );
@@ -88,6 +84,10 @@ int main(int argc, char const *argv[])
     CUDA_CHECK (  cudaStreamDestroy(s2));
     CUDA_CHECK (  cudaStreamDestroy(s3));
     CUDA_CHECK (  cudaStreamDestroy(s4));
+
+    cudaEventRecord(stop, 0);
+
+    cudaEventSynchronize(stop);
 
     float ms;
     cudaEventElapsedTime(&ms, start, stop);
