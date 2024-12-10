@@ -62,10 +62,10 @@ int main(int argc, char const *argv[])
     CUDA_CHECK ( cudaMemcpyAsync(dx + 2*(N/4), x + 2*(N/4), N*sizeof(int) / 4, cudaMemcpyHostToDevice, s3) );
     CUDA_CHECK ( cudaMemcpyAsync(dx + 3*(N/4), x + 3*(N/4), N*sizeof(int) / 4, cudaMemcpyHostToDevice, s4) );
 
-    kernel::compute<<<B,T, 0, s1>>>(dx,N/4);
-    kernel::compute<<<B,T, 0, s2>>>(dx + (N/4),N/4);
-    kernel::compute<<<B,T, 0, s3>>>(dx + 2*(N/4),N/4);
-    kernel::compute<<<B,T, 0, s4>>>(dx + 3*(N/4),N/4);
+    kernel::compute<<<(N/4 +T - 1),T, 0, s1>>>(dx,N/4);
+    kernel::compute<<<(N/4 +T - 1),T, 0, s2>>>(dx + (N/4),N/4);
+    kernel::compute<<<(N/4 +T - 1),T, 0, s3>>>(dx + 2*(N/4),N/4);
+    kernel::compute<<<(N/4 +T - 1),T, 0, s4>>>(dx + 3*(N/4),N/4);
     CUDA_CHECK( cudaGetLastError() );
 
     //CUDA_CHECK( cudaMemcpy(x, dx, N*sizeof(int), cudaMemcpyDeviceToHost) );
