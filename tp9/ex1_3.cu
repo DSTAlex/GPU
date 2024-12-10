@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
 
     CUDA_CHECK ( cudaMemcpyAsync(dx, x, N*sizeof(int) / 4, cudaMemcpyHostToDevice, s1) );
     CUDA_CHECK ( cudaMemcpyAsync(dx + (N/4), x + (N/4), N*sizeof(int) / 4, cudaMemcpyHostToDevice, s2) );
-    CUDA_CHECK ( cudaMemcpyAsync(dx + 2*(N/4), x 2*(N/4), N*sizeof(int) / 4, cudaMemcpyHostToDevice, s3) );
+    CUDA_CHECK ( cudaMemcpyAsync(dx + 2*(N/4), x + 2*(N/4), N*sizeof(int) / 4, cudaMemcpyHostToDevice, s3) );
     CUDA_CHECK ( cudaMemcpyAsync(dx + 3*(N/4), x + 3*(N/4), N*sizeof(int) / 4, cudaMemcpyHostToDevice, s4) );
 
     kernel::compute<<<B,T, 0, s1>>>(dx,N/4);
@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
 
     CUDA_CHECK ( cudaMemcpyAsync(x, dx, N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s1) );
     CUDA_CHECK ( cudaMemcpyAsync(x + (N/4), dx + (N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s2) );
-    CUDA_CHECK ( cudaMemcpyAsync(x 2*(N/4), dx + 2*(N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s3) );
+    CUDA_CHECK ( cudaMemcpyAsync(x + 2*(N/4), dx + 2*(N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s3) );
     CUDA_CHECK ( cudaMemcpyAsync(x + 3*(N/4), dx + 3*(N/4), N*sizeof(int) / 4, cudaMemcpyDeviceToHost, s4) );
 
     CUDA_CHECK ( cudaStreamSynchronize(s1) );
