@@ -97,10 +97,10 @@ int main(int argc, char const *argv[])
     CUDA_CHECK( cudaStreamWaitEvent(s4, e1));
     CUDA_CHECK( cudaStreamWaitEvent(s4, e2));
 
-    kernel3<<<B,T 0 , s3>>>(dx,dy,dz,N/2);
+    kernel3<<<B,T, 0 , s3>>>(dx,dy,dz,N/2);
     CUDA_CHECK( cudaGetLastError() );
 
-    kernel3<<<B,T 0 , s4>>>(dx + N/2, dy + N/2, dz + N/2,N/2);
+    kernel3<<<B,T, 0 , s4>>>(dx + N/2, dy + N/2, dz + N/2,N/2);
     CUDA_CHECK( cudaGetLastError() );
 
     kernel4<<<B,T, 0, s4>>>(dz,N/2);
