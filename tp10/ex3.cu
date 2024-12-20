@@ -8,7 +8,8 @@ thrust::host_vector<int> random_sample(
     const int N = h_scores.size();
     thrust::device_vector<int> d_scores = h_scores; // host to device
     
-    auto a = random_sample_device(d_scores, M, N);
+    
+    int sum = thrust::reduce(thrust::device, d_scores.begin(), d_scores.end(), 0, thrust::plus<int>());
 
     return {};
 }
