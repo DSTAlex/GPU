@@ -18,7 +18,7 @@ thrust::device_vector<int> random_sample_device(
     int M, int N)
 {
     
-    int sum = thrust::reduce(thrust::device, d_scores.begin(), d_scores.end(), 0, []__device__(int a, int b){return a + b;});
+    int sum = thrust::reduce(thrust::device, d_scores.begin(), d_scores.end(), 0, thrust::plus<int>());
 
     return {};
 }
