@@ -15,14 +15,14 @@ thrust::host_vector<int> random_sample(
     {
         sum = 1;
     }
-    printf("%i\n",d_scores.size());
+    printf("%u\n",d_scores.size());
     thrust::transform(thrust::device, d_scores.begin(), d_scores.end(), d_scores.begin(), [sum]__device__(auto zip)->int
         {
             return zip / sum;
         });
 
     
-    printf("%i\n",d_scores.size());
+    printf("%u\n",d_scores.size());
 
     return {};
 }
