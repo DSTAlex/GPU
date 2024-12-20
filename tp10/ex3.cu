@@ -29,7 +29,7 @@ thrust::host_vector<int> random_sample(
 
     auto iter = thrust::make_counting_iterator(0);
 
-    thrust::transform(thrust::device, random.begin(), random.end(), random.begin(), [iter]__device__(auto proba)->int
+    thrust::transform(thrust::device, random.begin(), random.end(), random.begin(), [iter]__device__(auto proba)->float
         {
             return RNG()(iter.base());
         });
