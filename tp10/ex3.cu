@@ -11,15 +11,14 @@ thrust::host_vector<int> random_sample(
     
     int sum = thrust::reduce(thrust::device, d_scores.begin(), d_scores.end(), 0, thrust::plus<int>());
 
-    return {};
-}
+    if (sum == 0)
+    {
+        sum = 1;
+    }
+    thrust::transform(thrust::device, d_scores.begin(), d_scores.end(), d_scores.begin(), []__device__(auto zip)->int
+        {
+            return zip / sum;
+        });
 
-thrust::device_vector<int> random_sample_device(
-    const thrust::device_vector<int>& d_scores, 
-    int M, int N)
-{
-    
-    int sum = thrust::reduce(thrust::device, d_scores.begin(), d_scores.end(), 0, thrust::plus<int>());
-
-    return {};
+    return d_scores;
 }
