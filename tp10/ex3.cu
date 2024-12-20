@@ -31,7 +31,7 @@ thrust::host_vector<int> random_sample(
 
     thrust::transform(thrust::device, random.begin(), random.end(), random.begin(), []__device__(auto proba)->float
         {
-            return RNG()(10);
+            return RNG()(1);
         });
 
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_scores]__device__(auto proba)->int
