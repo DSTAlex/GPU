@@ -25,7 +25,7 @@ thrust::host_vector<int> random_sample(
     thrust::inclusive_scan(d_scores.begin(), d_scores.end(), d_scores.begin());
 
     thrust::device_vector<int> res(M);
-    thrust::device_vector<int> random(M);
+    thrust::device_vector<float> random(M);
 
     auto iter = thrust::make_counting_iterator(0);
 
