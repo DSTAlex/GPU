@@ -1,12 +1,13 @@
 #include "common.h"
 #include "ex1.h"
 
+const string folder = "tp10/" 
 int main()
 {
     {
         std::cout << "Test 1" << std::endl;
         constexpr int N = 8;
-        const thrust::host_vector<int> x = read_from_file<int>("data/ex1_x.txt", N);
+        const thrust::host_vector<int> x = read_from_file<int>(folder + "data/ex1_x.txt", N);
         const thrust::host_vector<int> y = read_from_file<int>("data/ex1_y.txt", N);
         const thrust::host_vector<int> z_true = read_from_file<int>("data/ex1_z.txt", N);
         const thrust::host_vector<int> z_test = add(x,y);
