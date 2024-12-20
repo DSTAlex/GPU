@@ -1,6 +1,7 @@
 #include "common.h"
 #include "ex1.h"
 
+// in case of compiling in other folder
 std::string folder = "tp10/" ;
 
 int main()

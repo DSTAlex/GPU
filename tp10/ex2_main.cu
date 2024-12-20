@@ -1,15 +1,18 @@
 #include "common.h"
 #include "ex2.h"
 
+// in case of compiling in other folder
+std::string folder = "tp10/" ;
+
 int main()
 {
     {
         std::cout << "Test 1" << std::endl;
         constexpr int N = 100;
         constexpr int K = 10;
-        const thrust::host_vector<int> x = read_from_file<int>("data/ex2_x.txt", N);
-        const thrust::host_vector<int> top_true = read_from_file<int>("data/ex2_test1_top.txt", K);
-        const thrust::host_vector<int> bottom_true = read_from_file<int>("data/ex2_test1_bottom.txt", K);
+        const thrust::host_vector<int> x = read_from_file<int>(folder + "data/ex2_x.txt", N);
+        const thrust::host_vector<int> top_true = read_from_file<int>(folder + "data/ex2_test1_top.txt", K);
+        const thrust::host_vector<int> bottom_true = read_from_file<int>(folder + "data/ex2_test1_bottom.txt", K);
         const auto results = bottom_top_k_positives(x, K);
         const thrust::host_vector<int>& bottom_test = results.first;
         const thrust::host_vector<int>& top_test = results.second;
@@ -33,9 +36,9 @@ int main()
         std::cout << "Test 2" << std::endl;
         constexpr int N = 1000;
         constexpr int K = 100;
-        const thrust::host_vector<int> x = read_from_file<int>("data/ex2_x.txt", N);
-        const thrust::host_vector<int> top_true = read_from_file<int>("data/ex2_test2_top.txt", K);
-        const thrust::host_vector<int> bottom_true = read_from_file<int>("data/ex2_test2_bottom.txt", K);
+        const thrust::host_vector<int> x = read_from_file<int>(folder + "data/ex2_x.txt", N);
+        const thrust::host_vector<int> top_true = read_from_file<int>(folder + "data/ex2_test2_top.txt", K);
+        const thrust::host_vector<int> bottom_true = read_from_file<int>(folder + "data/ex2_test2_bottom.txt", K);
         const auto results = bottom_top_k_positives(x, K);
         const thrust::host_vector<int>& bottom_test = results.first;
         const thrust::host_vector<int>& top_test = results.second;
@@ -59,9 +62,9 @@ int main()
         std::cout << "Test 3" << std::endl;
         constexpr int N = 1000000;
         constexpr int K = 1000;
-        const thrust::host_vector<int> x = read_from_file<int>("data/ex2_x.txt", N);
-        const thrust::host_vector<int> top_true = read_from_file<int>("data/ex2_test3_top.txt", K);
-        const thrust::host_vector<int> bottom_true = read_from_file<int>("data/ex2_test3_bottom.txt", K);
+        const thrust::host_vector<int> x = read_from_file<int>(folder + "data/ex2_x.txt", N);
+        const thrust::host_vector<int> top_true = read_from_file<int>(folder + "data/ex2_test3_top.txt", K);
+        const thrust::host_vector<int> bottom_true = read_from_file<int>(folder + "data/ex2_test3_bottom.txt", K);
         const auto results = bottom_top_k_positives(x, K);
         const thrust::host_vector<int>& bottom_test = results.first;
         const thrust::host_vector<int>& top_test = results.second;

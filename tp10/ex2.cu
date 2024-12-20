@@ -4,8 +4,13 @@ thrust::device_vector<int> copy_positives(
     const thrust::device_vector<int>& dx)
 {
     // ...
+    int length = thrust::count_if(dx.begin(), dx.end(), []__device__(int a)->bool{return a > 0;});
 
-    return {};
+    thrust::device_vector<int> dz(length);
+
+    thrust::copy_if(dz.begin(), dx.end(), dz.begin(), []__device(int a)->bool{return a > 0;});
+
+    return dz;
 }
 
 std::pair<
