@@ -15,7 +15,8 @@ thrust::host_vector<int> add(
 
     thrust::transform(begin, end, dz.begin(), [](auto& zip)->int
         {
-            return *(thrust::get<0>(zip)) + *(thrust::get<1>(zip));
+            // return *(thrust::get<0>(zip)) + *(thrust::get<1>(zip));
+            return 1;
         });
 
     return dz;
