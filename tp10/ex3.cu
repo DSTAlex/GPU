@@ -23,5 +23,20 @@ thrust::host_vector<int> random_sample(
 
     thrust::inclusive_scan(d_scores.begin(), d_scores.end(), d_scores.begin());
 
-    return {};
+    thrust::device_vector<int> res(M);
+    thrust::device_vector<int> random(M);
+
+    thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_scores]__device__(auto proba)->int
+        {
+            int index = 0;
+            for(auto score : d_scores){
+                if (score > proba)
+                    return index
+                index++;
+            }
+            return index;
+        });
+
+
+    return res;
 }
