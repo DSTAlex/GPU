@@ -15,7 +15,7 @@ thrust::host_vector<int> add(
 
     thrust::transform(thrust::device, begin, end, dz.begin(), []__device__(auto zip)->int
         {
-            return thrust::get<0>(zip) +thrust::get<1>(zip));
+            return thrust::get<0>(zip) +thrust::get<1>(zip);
         });
 
     return dz;
