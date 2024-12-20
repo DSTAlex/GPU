@@ -37,7 +37,6 @@ thrust::host_vector<int> random_sample(
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_proba]__device__(auto proba)->int
         {
             int index = 0;
-            printf("pb:%f, score:%i\n", proba);
             for(auto score : d_proba){
                 if (score > proba)
                     return index;
