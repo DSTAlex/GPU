@@ -13,7 +13,7 @@ thrust::host_vector<int> add(
     thrust::zip_iterator begin = thrust::make_zip_iterator(dx.begin(), dy.begin());
     thrust::zip_iterator end = thrust::make_zip_iterator(dx.end(), dy.end());
 
-    thrust::transform(begin, end, dz, [](auto zip)->int
+    thrust::transform(begin, end, dz, [](auto& zip)->int
         {
             return thrust::get<0>(zip) + thrust::get<1>(zip);
         });
