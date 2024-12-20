@@ -16,9 +16,9 @@ thrust::host_vector<int> random_sample(
         sum = 1;
     }
     printf("%lu\n",d_scores.size());
-    thrust::transform(thrust::device, d_scores.begin(), d_scores.end(), d_scores.begin(), [sum]__device__(auto zip)->int
+    thrust::transform(thrust::device, d_scores.begin(), d_scores.end(), d_scores.begin(), [sum]__device__(auto zip)->float
         {
-            return zip / sum;
+            return (float)zip / (float)sum;
         });
 
     
