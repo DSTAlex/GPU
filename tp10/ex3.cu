@@ -1,4 +1,5 @@
 #include "ex3.h"
+#include <thrust/iterator/counting_iterator.h>
 
 // random sample M indices according to N scores
 thrust::host_vector<int> random_sample(
@@ -26,12 +27,11 @@ thrust::host_vector<int> random_sample(
     thrust::device_vector<int> res(M);
     thrust::device_vector<int> random(M);
 
-    int i = -1;
-    int *a = &i;
-    thrust::transform(thrust::device, random.begin(), random.end(), random.begin(), [a]__device__(auto proba)->int
+    auto iter = thrust::make_counting_iterator(0);
+
+    thrust::transform(thrust::device, random.begin(), random.end(), random.begin(), [iter]__device__(auto proba)->int
         {
-            *(a)+=1;
-            return RNG()(*a);
+            return RNG()(iter.base());
         });
 
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_scores]__device__(auto proba)->int
