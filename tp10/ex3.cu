@@ -29,9 +29,12 @@ thrust::host_vector<int> random_sample(
 
     auto iter = thrust::make_counting_iterator(0);
 
-    thrust::transform(thrust::device, random.begin(), random.end(), random.begin(), []__device__(auto proba)->float
+    auto begin = thrust::make_zip_iterator(random.begin(), iter);
+    auto end = thrust::make_zip_iterator(random.end(), iter + M);
+
+    thrust::transform(thrust::device, iter, iter+M, random.begin(), []__device__(auto proba)->float
         {
-            return RNG()(1);
+            return RNG()(proba);
         });
 
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_scores]__device__(auto proba)->int
