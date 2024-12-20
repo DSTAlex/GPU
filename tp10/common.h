@@ -92,7 +92,7 @@ inline float max_diff_between_histo(
     float max = 0;
     for(int i = 0; i < N; ++i)
     {
-        printf("test:%f reel%f\n", histo0[i], histo1[i]);
+        //printf("test:%f reel%f\n", histo0[i], histo1[i]);
         max = std::max(max, std::abs(histo0[i] - histo1[i]));
     }
     return max;
