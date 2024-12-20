@@ -1,7 +1,7 @@
 #include "common.h"
 #include "ex1.h"
 
-string folder = "tp10/" ;
+std::string folder = "tp10/" ;
 
 int main()
 {
