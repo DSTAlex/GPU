@@ -1,14 +1,23 @@
 #include "ex2.h"
 
+struct is_positif
+{
+  __host__ __device__
+  bool operator()(const int x)
+  {
+    return x > 0;
+  }
+};
+
 thrust::device_vector<int> copy_positives(
     const thrust::device_vector<int>& dx)
 {
     // ...
-    int length = thrust::count_if(dx.begin(), dx.end(), []__device__(int a)->bool{return a > 0;});
+    int length = thrust::count_if(dx.begin(), dx.end(), is_positif());
 
     thrust::device_vector<int> dz(length);
 
-    thrust::copy_if(dz.begin(), dx.end(), dz.begin(), []__device(int a)->bool{return a > 0;});
+    thrust::copy_if(dz.begin(), dx.end(), dz.begin(), is_positif());
 
     return dz;
 }
