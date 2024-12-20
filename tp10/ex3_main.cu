@@ -1,6 +1,9 @@
 #include "common.h"
 #include "ex3.h"
 
+// in case of compiling in other folder
+std::string folder = "tp10/" ;
+
 int main()
 {
     std::cout << "Test 1" << std::endl;
@@ -48,7 +51,7 @@ int main()
     {
         const int N = 1000;
         const int M = 10000;
-        thrust::host_vector<int> scores = read_from_file<int>("data/ex3_scores.txt", N);
+        thrust::host_vector<int> scores = read_from_file<int>(folder + "data/ex3_scores.txt", N);
 
         const thrust::host_vector<int> results = random_sample(scores, M);
         if(results.size() != M) {
@@ -64,7 +67,7 @@ int main()
         }
 
         const thrust::host_vector<float> histo_test = compute_histogram(results, N);
-        thrust::host_vector<float> histo_true = read_from_file<float>("data/ex3_histo1.txt", N);
+        thrust::host_vector<float> histo_true = read_from_file<float>(folder + "data/ex3_histo1.txt", N);
 
         const float max_diff = max_diff_between_histo(histo_test, histo_true);
         if(max_diff < 0.01) {
@@ -79,7 +82,7 @@ int main()
     {
         const int N = 20000;
         const int M = 10000;
-        thrust::host_vector<int> scores = read_from_file<int>("data/ex3_scores.txt", N);
+        thrust::host_vector<int> scores = read_from_file<int>(folder + "data/ex3_scores.txt", N);
 
         const thrust::host_vector<int> results = random_sample(scores, M);
         if(results.size() != M) {
@@ -95,7 +98,7 @@ int main()
         }
 
         const thrust::host_vector<float> histo_test = compute_histogram(results, N);
-        thrust::host_vector<float> histo_true = read_from_file<float>("data/ex3_histo2.txt", N);
+        thrust::host_vector<float> histo_true = read_from_file<float>(folder + "data/ex3_histo2.txt", N);
 
         const float max_diff = max_diff_between_histo(histo_test, histo_true);
         if(max_diff < 0.01) {
