@@ -10,6 +10,5 @@ thrust::host_vector<int> random_sample(
     
     int sum = thrust::reduce(d_scores.begin(), d_scores.end(), 0, std::plus<uint64_t>{});
 
-    printf("%i", sum);
     return {};
 }
