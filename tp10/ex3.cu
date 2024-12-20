@@ -31,7 +31,7 @@ thrust::host_vector<int> random_sample(
             int index = 0;
             for(auto score : d_scores){
                 if (score > proba)
-                    return index
+                    return index;
                 index++;
             }
             return index;
