@@ -2,7 +2,7 @@
 
 struct is_positif
 {
-  __host__ __device__
+  __device__
   bool operator()(const int x)
   {
     return x > 0;
@@ -17,7 +17,7 @@ thrust::device_vector<int> copy_positives(
 
     thrust::device_vector<int> dz(length);
 
-    thrust::copy_if(dz.begin(), dx.end(), dz.begin(), is_positif());
+    thrust::copy_if(dx.begin(), dx.end(), dz.begin(), is_positif());
 
     return dz;
 }
