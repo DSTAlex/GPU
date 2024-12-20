@@ -49,6 +49,9 @@ bottom_top_k_positives(
     int K)
 {   
     // ...
+
+    thrust::device_vector<int> dx = hx;
+    auto a = bottom_top_k(dx, K);
     
     return {};
 }
