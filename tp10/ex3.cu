@@ -8,6 +8,16 @@ thrust::host_vector<int> random_sample(
     const int N = h_scores.size();
     thrust::device_vector<int> d_scores = h_scores; // host to device
     
+    auto a = random_sample_device(d_scores, M, N);
+
+    return {};
+}
+
+thrust::device_vector<int> random_sample_device(
+    const thrust::device_vector<int>& d_scores, 
+    int M, int N)
+{
+    
     int sum = thrust::reduce(thrust::device, d_scores.begin(), d_scores.end(), 0, []__device__(int a, int b){return a + b;});
 
     return {};
