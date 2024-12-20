@@ -1,7 +1,8 @@
 #include "common.h"
 #include "ex1.h"
 
-const string folder = "tp10/" 
+string folder = "tp10/" ;
+
 int main()
 {
     {
