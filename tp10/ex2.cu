@@ -32,9 +32,9 @@ bottom_top_k(
     thrust::device_vector<int> top(K);
     thrust::device_vector<int> bottom(K);
 
-    thrust::sort(dx.begin(), dx.end());
-    thrust::copy(dx.begin(), dx.begin()+K, bottom.begin());
-    thrust::copy(dx.end()-K, dx.end(), top.begin());
+    // thrust::sort(dx.begin(), dx.end());
+    // thrust::copy(dx.begin(), dx.begin()+K, bottom.begin());
+    // thrust::copy(dx.end()-K, dx.end(), top.begin());
 
 
     std::pair<thrust::device_vector<int>, thrust::device_vector<int>> res{top, bottom};
