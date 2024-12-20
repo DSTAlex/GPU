@@ -10,8 +10,8 @@ thrust::host_vector<int> add(
     const int N = hx.size();
     thrust::device_vector<int> dz(N);
 
-    thrust::zip_iterator begin =thrust::make_zip_iterator(dx.begin(), dy.end());
-    thrust::zip_iterator end =thrust::make_zip_iterator(dx.begin(), dy.end());
+    thrust::zip_iterator begin = thrust::make_zip_iterator(dx.begin(), dy.begin());
+    thrust::zip_iterator end = thrust::make_zip_iterator(dx.end(), dy.end());
 
     thrust::transform(begin, end, dz, [](int a, int b)->int
         {
