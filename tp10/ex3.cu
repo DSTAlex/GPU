@@ -30,7 +30,7 @@ thrust::host_vector<int> random_sample(
 
     thrust::inclusive_scan(d_proba.begin(), d_proba.end(), d_proba.begin());
 
-    printf("inclusive scan");
+    printf("\ninclusive scan");
     for(float proba : d_proba)
     {
         printf("%f ", proba);
@@ -45,6 +45,12 @@ thrust::host_vector<int> random_sample(
         {
             return RNG()(proba);
         });
+
+    printf("\nrandom");
+    for(float proba : random)
+    {
+        printf("%f ", proba);
+    }
 
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_proba]__device__(auto proba)->int
         {
