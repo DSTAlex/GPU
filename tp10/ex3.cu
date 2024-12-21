@@ -21,21 +21,8 @@ thrust::host_vector<int> random_sample(
         {
             return (float)zip / (float)sum;
         });
-    
-    printf("proba score");
-    for(float proba : d_proba)
-    {
-        printf("%f ", proba);
-    }
 
     thrust::inclusive_scan(d_proba.begin(), d_proba.end(), d_proba.begin());
-
-    printf("\ninclusive scan");
-    for(float proba : d_proba)
-    {
-        printf("%f ", proba);
-    }
-    printf("\n");
 
     thrust::device_vector<int> res(M);
     thrust::device_vector<float> random(M);
@@ -47,14 +34,11 @@ thrust::host_vector<int> random_sample(
             return RNG()(proba);
         });
 
-    // printf("\nrandom");
-    // for(float proba : random)
-    // {
-    //     printf("%f ", proba);
-    // }
+
     auto proba_scaned = d_proba.data().get();
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [proba_scaned, N]__device__(auto proba)->int
         {
+            // pas trouver commen paraléliser se for
             for (int i = 0; i < N; i++)
             {
                 if (proba <= *(proba_scaned+i))

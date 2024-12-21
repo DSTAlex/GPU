@@ -46,7 +46,6 @@ int main()
             std::cout << "  failure !" << std::endl;
             std::cout << "  max diff histogram = " << max_diff << std::endl;
         }
-        return 1;
     }
     std::cout << "Test 2" << std::endl;
     {
