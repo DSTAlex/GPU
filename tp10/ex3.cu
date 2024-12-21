@@ -57,10 +57,10 @@ thrust::host_vector<int> random_sample(
         {
             for (int i = 0; i < N; i++)
             {
-                if (proba > *(proba_scaned+i))
+                if (proba <= *(proba_scaned+i))
                     return i;
             }
-            return N;
+            return 0;
         });
 
 
