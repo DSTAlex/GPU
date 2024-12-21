@@ -21,8 +21,20 @@ thrust::host_vector<int> random_sample(
         {
             return (float)zip / (float)sum;
         });
+    
+    printf("proba score");
+    for(float proba : d_proba)
+    {
+        printf("%f ", proba);
+    }
 
     thrust::inclusive_scan(d_proba.begin(), d_proba.end(), d_proba.begin());
+
+    printf("inclusive scan");
+    for(float proba : d_proba)
+    {
+        printf("%f ", proba);
+    }
 
     thrust::device_vector<int> res(M);
     thrust::device_vector<float> random(M);
@@ -37,7 +49,6 @@ thrust::host_vector<int> random_sample(
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_proba]__device__(auto proba)->int
         {
             int index = 0;
-            printf("proba:%f ", proba);
             for(auto score : d_proba){
                 if (score > proba)
                 {
@@ -46,7 +57,6 @@ thrust::host_vector<int> random_sample(
                 }
                 index++;
             }
-            printf("\n");
             return index;
         });
 
