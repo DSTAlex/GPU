@@ -46,16 +46,18 @@ thrust::host_vector<int> random_sample(
             return RNG()(proba);
         });
 
-    printf("\nrandom");
-    for(float proba : random)
-    {
-        printf("%f ", proba);
-    }
+    // printf("\nrandom");
+    // for(float proba : random)
+    // {
+    //     printf("%f ", proba);
+    // }
 
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_proba]__device__(auto proba)->int
         {
             int index = 0;
-            for(auto score : d_proba){
+            for(float score : d_proba){
+
+                printf("score:%f %f\n", score, proba);
                 if (score > proba)
                 {
                     printf("score:%f\n", score);
