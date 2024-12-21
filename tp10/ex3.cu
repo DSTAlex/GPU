@@ -54,7 +54,7 @@ thrust::host_vector<int> random_sample(
 
     thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [d_proba, N]__device__(auto proba)->int
         {
-            for (float a : d_proba)
+            for (float a : d_proba.data())
             {
                 printf("%f",a);
             }
