@@ -52,11 +52,11 @@ thrust::host_vector<int> random_sample(
     //     printf("%f ", proba);
     // }
     auto truc = d_proba.data();
-    thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [truc]__device__(auto proba)->int
+    thrust::transform(thrust::device, random.begin(), random.end(), res.begin(), [truc, N]__device__(auto proba)->int
         {
-            for (float a : truc)
+            for (int i = 0; i < N; i++)
             {
-                printf("%f",a);
+                printf("%f",*(truc+i));
             }
             return 0;
         });
