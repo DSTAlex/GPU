@@ -19,7 +19,7 @@
 struct RNG
 {
     // returns a random number in (0.0, 1.0)
-    __device__
+    __host__ __device__
     float operator()(int i) const
     {
         thrust::default_random_engine rng;
