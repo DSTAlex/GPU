@@ -16,7 +16,14 @@ namespace kernel {
 
 __global__ void max_abs(const int *x, int N, int *y)
 {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i > N)
+        return;
+    
+    int v = warp_reduce_max(abs(x[i])); 
 
+    if (i % 32 == 0)
+        y[i / 32] = v;
 }
 
 } // namespace kernel
