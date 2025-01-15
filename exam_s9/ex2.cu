@@ -53,5 +53,5 @@ thrust::host_vector<int> copy_positive_gpu(const thrust::host_vector<int>& hx)
 
     thrust::scatter_if(dx.begin(), dx.end(), map.begin(), is_pos.begin(), results.begin(), pred);
 
-    return results;
+    return is_pos;
 }
