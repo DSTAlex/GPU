@@ -26,12 +26,12 @@ int main()
         //     }
         // }
         // std::cout << "Success" << std::endl;
-        std::cout << "input ";
+        std::cout << "input  ";
         for (auto e : x)
         {
             std::cout << e << " ";
         }
-        std::cout << "\n outout ";
+        std::cout << "\noutout ";
         for (auto e : z_test)
         {
             std::cout << e << " ";
