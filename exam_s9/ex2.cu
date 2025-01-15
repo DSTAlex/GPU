@@ -33,7 +33,7 @@ thrust::host_vector<int> copy_positive_gpu(const thrust::host_vector<int>& hx)
     thrust::device_vector<int> is_pos(N);
     thrust::device_vector<int> map(N);
 
-    thrust::transform(dx.begin(), dx.end(), is_pos.begin(), []__device__(auto value)->int
+    thrust::transform(dx.begin(), dx.end(), is_pos.begin(), []__device__(int value)->int
         {
             if (value > 0)
                 return 1;
