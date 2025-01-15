@@ -43,5 +43,22 @@ int max_abs_cpu(const int *x, int N)
 
 int max_abs_gpu(const int *x, int N)
 {
+    int max = 0;
+
+    const int B = (N + T - 1) / T;
+
+    std::vector<int> y(B*W);
+
+    int* dy = nullptr;
+    CUDA_CHECK( cudaMalloc(&dy, W*B*sizeof(int)) );
+
+    kernel::reduce1<<<B, T>>>(dx, dy, N);
+
+    CUDA_CHECK( cudaMemcpy(y.data(), dy, W*B*sizeof(int), cudaMemcpyDeviceToHost) );
+    CUDA_CHECK( cudaFree(dy) );
     
+    for ( int v : y){
+        if (v > max)
+            max = v;
+    }
 }
