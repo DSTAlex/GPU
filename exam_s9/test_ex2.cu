@@ -29,8 +29,12 @@ int main()
         std::cout << "input ";
         for (auto e : x)
         {
-            std::cout << e , " ";
+            std::cout << e << " ";
         }
         std::cout << "\n outout ";
+        for (auto e : z_test)
+        {
+            std::cout << e << " ";
+        }
     }
 }
