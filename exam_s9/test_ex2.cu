@@ -31,10 +31,11 @@ int main()
         {
             std::cout << e << " ";
         }
-        std::cout << "\noutout ";
+        std::cout << "\noutput ";
         for (auto e : z_test)
         {
             std::cout << e << " ";
         }
+        std::cout << "\n";
     }
 }
