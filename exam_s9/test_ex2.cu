@@ -17,13 +17,14 @@ int main()
         //     std::cerr << "  got      : " << z_test.size() << std::endl;
         //     return 0;
         // }
+        std::cout << x[999_999]<< '\n';
         const int N = z_true.size();
         for(int i = 0; i<N; ++i) {
             if(z_test[i] != z_true[i]) {
                 std::cout << "Error: at i=" << i << std::endl;
                 std::cout << "  expected : " << z_true[i] << std::endl;
                 std::cout << "  got      : " << z_test[i] << std::endl;
-                return 0;
+                // return 0;
             }
         }
         std::cout << "other "<< z_true[N-1] << " " << z_test[N-2];
