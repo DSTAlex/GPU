@@ -37,5 +37,22 @@ int main()
     //         std::cout << e << " ";
     //     }
     //     std::cout << "\n";
-    // }
+    }
+
+
+
+template<typename T>
+thrust::host_vector<T> read_from_file(const std::string& filename, int N)
+{
+    thrust::host_vector<T> values(N);
+    std::ifstream f;
+    f.open(filename);
+    if(not f.is_open()) {
+        std::cerr << "Error: could not open file '" << filename << "'" << std::endl;
+        return {};
+    }
+    for(int i = 0; i < N; ++i) {
+        f >> values[i];
+    }
+    return values;
 }
