@@ -56,7 +56,7 @@ int max_abs_gpu(const int *x, int N)
     CUDA_CHECK( cudaMalloc(&dx, N*sizeof(int)) );
     CUDA_CHECK( cudaMemcpy(dx, x.data(), N*sizeof(int), cudaMemcpyHostToDevice) );
 
-    kernel::max_abs<<<B, T>>>(dx, dy, N);
+    kernel::max_abs<<<B, T>>>(dx, N, dy);
 
     CUDA_CHECK( cudaMemcpy(y.data(), dy, W*B*sizeof(int), cudaMemcpyDeviceToHost) );
     CUDA_CHECK( cudaFree(dy) );
