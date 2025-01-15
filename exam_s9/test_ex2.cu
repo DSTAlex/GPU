@@ -7,7 +7,8 @@ int main()
 {
     {
         std::cout << "Test 1" << std::endl;
-        const thrust::host_vector<int> x = read_from_file<int>("exam_s9/data.txt", 1000000);
+        // const thrust::host_vector<int> x = read_from_file<int>("exam_s9/data.txt", 1000000);
+        const thrust::host_vector<int> x = {1,2,0,-4,5,6,-7,-8};
         const thrust::host_vector<int> z_true = copy_positive_cpu(x);
         const thrust::host_vector<int> z_test = copy_positive_gpu(x);
         // if(z_true.size() != z_test.size()) {
