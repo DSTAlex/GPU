@@ -20,13 +20,13 @@ int main()
         const int N = z_true.size();
         for(int i = 0; i<N; ++i) {
             if(z_test[i] != z_true[i]) {
-                std::cerr << "Error: at i=" << i << std::endl;
-                std::cerr << "  expected : " << z_true[i] << std::endl;
-                std::cerr << "  got      : " << z_test[i] << std::endl;
+                std::cout << "Error: at i=" << i << std::endl;
+                std::cout << "  expected : " << z_true[i] << std::endl;
+                std::cout << "  got      : " << z_test[i] << std::endl;
                 return 0;
             }
         }
-        std::cout << z_true[N-1] << " " << z_test[N-2];
+        std::cout << "other "<< z_true[N-1] << " " << z_test[N-2];
         // std::cout << "Success" << std::endl;
     //     std::cout << "input  ";
     //     for (auto e : x)
