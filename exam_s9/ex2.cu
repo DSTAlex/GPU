@@ -45,7 +45,7 @@ thrust::host_vector<int> copy_positive_gpu(const thrust::host_vector<int>& hx)
 
     thrust::exclusive_scan(is_pos.begin(), is_pos.end(), map.begin());
     
-    const int M = map[N - 1];
+    const int M = map[N];
 
     thrust::device_vector<int> results(M);
 
