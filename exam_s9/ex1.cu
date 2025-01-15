@@ -65,4 +65,6 @@ int max_abs_gpu(const int *x, int N)
         if (v > max)
             max = v;
     }
+
+    return max;
 }
