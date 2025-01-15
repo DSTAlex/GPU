@@ -26,11 +26,11 @@ int main()
         //     }
         // }
         // std::cout << "Success" << std::endl;
-        std::cout << "input "
+        std::cout << "input ";
         for (auto e : x)
         {
             std::cout << e ,, " ";
         }
-        std::cout << "\n outout "
+        std::cout << "\n outout ";
     }
 }
