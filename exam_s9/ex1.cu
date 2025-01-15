@@ -1,0 +1,40 @@
+#include "ex1.h"
+
+__device__ int warp_reduce_max(int m)
+{
+    int other = 0;
+    for (int k = 32; k > 1; k/=2){
+        other = __shfl_down_sync(0xFFFFFFFF, m, k/2, 32);
+        if (other > m)
+            m = other;
+        __syncthreads();
+    }
+    return m;
+}
+
+namespace kernel {
+
+__global__ void max_abs(const int *x, int N, int *y)
+{
+
+}
+
+} // namespace kernel
+
+int max_abs_cpu(const int *x, int N)
+{
+    int result = 0;
+    for(int i = 0; i < N; ++i)
+    {
+        if(abs(x[i]) > result)
+        {
+            result = abs(x[i]);
+        }
+    }
+    return result;
+}
+
+int max_abs_gpu(const int *x, int N)
+{
+    
+}
