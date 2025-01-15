@@ -27,7 +27,7 @@ struct is_ok
 
 thrust::host_vector<int> copy_positive_gpu(const thrust::host_vector<int>& hx)
 {
-     const thrust::device_vector<int> dx = hx; // host to device
+    const thrust::device_vector<int> dx = hx; // host to device
 
     const long N = hx.size();
     thrust::device_vector<int> is_pos(N);
