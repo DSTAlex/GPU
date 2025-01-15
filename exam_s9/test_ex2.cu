@@ -27,7 +27,7 @@ int main()
                 // return 0;
             }
         }
-        std::cout << "other "<< z_true[N-1] << " " << z_test[N-2];
+        std::cout << "other "<< z_true[N-1] << " " << z_true[N-2];
         // std::cout << "Success" << std::endl;
     //     std::cout << "input  ";
     //     for (auto e : x)
