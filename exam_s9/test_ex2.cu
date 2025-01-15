@@ -29,7 +29,7 @@ int main()
         std::cout << "input "
         for (auto e : x)
         {
-            std::cout << e ,, " "
+            std::cout << e ,, " ";
         }
         std::cout << "\n outout "
     }
