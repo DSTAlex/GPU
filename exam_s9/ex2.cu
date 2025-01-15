@@ -16,6 +16,15 @@ thrust::host_vector<int> copy_positive_cpu(const thrust::host_vector<int>& hx)
     return results;
 }
 
+struct is_ok
+{
+  __host__ __device__
+  bool operator()(int x)
+  {
+    return x == 1;
+  }
+};
+
 thrust::host_vector<int> copy_positive_gpu(const thrust::host_vector<int>& hx)
 {
      const thrust::device_vector<int> dx = hx; // host to device
@@ -40,7 +49,9 @@ thrust::host_vector<int> copy_positive_gpu(const thrust::host_vector<int>& hx)
 
     thrust::device_vector<int> results(M);
 
-    thrust::scatter_if(dx.begin(), dx.end(), map.begin(), is_pos.begin(), results.begin());
+    is_ok pred;
+
+    thrust::scatter_if(dx.begin(), dx.end(), map.begin(), is_pos.begin(), results.begin(), pred);
 
     return results;
 }
