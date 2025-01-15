@@ -17,7 +17,7 @@ int main()
         //     std::cerr << "  got      : " << z_test.size() << std::endl;
         //     return 0;
         // }
-        std::cout << x[999_999]<< '\n';
+        std::cout << x[999999]<< '\n';
         const int N = z_true.size();
         for(int i = 0; i<N; ++i) {
             if(z_test[i] != z_true[i]) {
