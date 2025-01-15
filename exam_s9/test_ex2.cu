@@ -39,7 +39,7 @@ int main()
     //     std::cout << "\n";
     }
 
-
+}
 
 template<typename T>
 thrust::host_vector<T> read_from_file(const std::string& filename, int N)
